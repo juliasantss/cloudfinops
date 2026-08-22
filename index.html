@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Índice — CloudFinOps</title>
+  <meta name="description" content="Índice de navegação do CloudFinOps: plataforma Web de análise e governança de custos de infraestrutura em nuvem." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- #region topbar (bloco repetido em todas as telas) -->
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="index.html">
+        <svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 17.2h9.6a3.3 3.3 0 0 0 .3-6.58A5.3 5.3 0 0 0 7.3 8.9 3.65 3.65 0 0 0 7 17.2Z"
+                fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+          <rect x="9.4" y="10.5" width="1.9" height="5" rx="0.6" fill="#6e9bff" />
+          <rect x="12.2" y="12" width="1.9" height="3.5" rx="0.6" fill="#6e9bff" opacity="0.75" />
+          <rect x="15" y="13.5" width="1.9" height="2" rx="0.6" fill="#6e9bff" opacity="0.5" />
+        </svg>
+        Cloud<span class="brand__fin">FinOps</span>
+      </a>
+      <p class="topbar__meta">3 contas AWS · us-east-1, sa-east-1</p>
+    </div>
+  </header>
+
+  <nav class="mainnav" aria-label="Navegação principal">
+    <div class="container">
+      <ul class="mainnav__list">
+        <li><a class="mainnav__link" href="dashboard.html">Dashboard</a></li>
+        <li><a class="mainnav__link" href="costs.html">Custos</a></li>
+        <li><a class="mainnav__link" href="anomalies.html">Anomalias</a></li>
+        <li><a class="mainnav__link" href="recommendations.html">Recomendações</a></li>
+        <li><a class="mainnav__link" href="budgets.html">Orçamentos</a></li>
+        <li><a class="mainnav__link" href="governance.html">Governança</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- #endregion topbar -->
+
+  <main id="conteudo" class="page">
+    <div class="container">
+      <section class="hero" aria-labelledby="hero-titulo">
+        <div>
+          <h1 id="hero-titulo" class="sr-only">CloudFinOps</h1>
+          <img class="hero__logo" src="assets/logo.svg" alt="CloudFinOps" width="232" height="48" />
+          <p class="hero__pitch">
+            Plataforma Web para <strong>análise e governança de custos de infraestrutura em nuvem</strong>.
+            Boa parte do desperdício em ambientes AWS nasce de decisões de rede — NAT Gateways mal roteados,
+            transferência entre regiões, endereços elásticos ociosos — e fica invisível até a fatura fechar.
+            O CloudFinOps organiza esse diagnóstico em uma trilha única: <strong>ver, detectar e agir</strong>.
+          </p>
+        </div>
+        <div class="hero__facts">
+          <p class="hero__fact"><span>Disciplina</span><b>Desenvolvimento Web · 2026.2</b></p>
+          <p class="hero__fact"><span>Curso</span><b>CST em Redes de Computadores · IFPB</b></p>
+          <p class="hero__fact"><span>Etapa</span><b>Concepção e interface estática</b></p>
+          <p class="hero__fact"><span>Tecnologias</span><b>HTML5, CSS3, SVG</b></p>
+          <p class="hero__fact"><span>Telas</span><b><span class="num">7</span></b></p>
+          <p class="hero__fact"><span>Dados</span><b>Fictícios (mock)</b></p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="telas-titulo">
+        <div class="section__head">
+          <h2 id="telas-titulo">Telas da aplicação</h2>
+          <p class="section__note">clique para navegar</p>
+        </div>
+        <div class="screens">
+          <a class="screen" href="dashboard.html">
+            <span class="screen__file">dashboard.html</span>
+            <span class="screen__name">Dashboard</span>
+            <span class="screen__desc">Visão consolidada do período: custo acumulado, projeção de fechamento, economia potencial, FinOps Score, evolução mensal, alertas e governança de tags.</span>
+            <span class="screen__go">Abrir tela →</span>
+          </a>
+          <a class="screen" href="costs.html">
+            <span class="screen__file">costs.html</span>
+            <span class="screen__name">Custos</span>
+            <span class="screen__desc">Análise detalhada por serviço, ambiente, conta e região, com filtros combináveis e comparação com o período anterior.</span>
+            <span class="screen__go">Abrir tela →</span>
+          </a>
+          <a class="screen" href="anomalies.html">
+            <span class="screen__file">anomalies.html</span>
+            <span class="screen__name">Anomalias</span>
+            <span class="screen__desc">Desvios de gasto em relação à linha de base histórica, classificados por severidade e acompanhados por status de tratamento.</span>
+            <span class="screen__go">Abrir tela →</span>
+          </a>
+          <a class="screen" href="recommendations.html">
+            <span class="screen__file">recommendations.html</span>
+            <span class="screen__name">Recomendações</span>
+            <span class="screen__desc">Oportunidades de otimização priorizadas por economia estimada, com diagnóstico, ação sugerida e risco de execução.</span>
+            <span class="screen__go">Abrir tela →</span>
+          </a>
+          <a class="screen" href="budgets.html">
+            <span class="screen__file">budgets.html</span>
+            <span class="screen__name">Orçamentos</span>
+            <span class="screen__desc">Acompanhamento de orçamento por escopo, com consumo acumulado, projeção de fechamento e alerta antecipado de estouro.</span>
+            <span class="screen__go">Abrir tela →</span>
+          </a>
+          <a class="screen" href="governance.html">
+            <span class="screen__file">governance.html</span>
+            <span class="screen__name">Governança</span>
+            <span class="screen__desc">Inventário de recursos, taxonomia das tags obrigatórias, conformidade por chave e custo que não pode ser atribuído a nenhuma equipe.</span>
+            <span class="screen__go">Abrir tela →</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="sobre-titulo">
+        <div class="section__head">
+          <h2 id="sobre-titulo">Sobre esta etapa</h2>
+          <p class="section__note">o que existe e o que ainda não existe</p>
+        </div>
+
+        <div class="split">
+          <div>
+            <h3 style="padding-top: var(--sp-4)">Implementado</h3>
+            <ul class="itemlist">
+              <li class="itemlist__row"><span><span class="itemlist__title">Sete telas estáticas navegáveis</span><span class="itemlist__meta">HTML semântico e CSS próprio, sem framework</span></span><span class="tag tag--gain">Pronto</span></li>
+              <li class="itemlist__row"><span><span class="itemlist__title">Filtros por categoria sem JavaScript</span><span class="itemlist__meta">Seletor irmão sobre campos de rádio</span></span><span class="tag tag--gain">Pronto</span></li>
+              <li class="itemlist__row"><span><span class="itemlist__title">Gráfico de evolução em SVG</span><span class="itemlist__meta">Escrito à mão, sem biblioteca de gráficos</span></span><span class="tag tag--gain">Pronto</span></li>
+              <li class="itemlist__row"><span><span class="itemlist__title">Identidade visual e logo</span><span class="itemlist__meta">Marca em SVG, tokens de design e tema escuro</span></span><span class="tag tag--gain">Pronto</span></li>
+              <li class="itemlist__row"><span><span class="itemlist__title">Conjunto de dados fictícios coerente</span><span class="itemlist__meta">Os valores fecham entre todas as telas</span></span><span class="tag tag--gain">Pronto</span></li>
+            </ul>
+          </div>
+          <div>
+            <h3 style="padding-top: var(--sp-4)">Próximas etapas</h3>
+            <ul class="itemlist">
+              <li class="itemlist__row"><span><span class="itemlist__title">Consumo de API simulada</span><span class="itemlist__meta">json-server, Fetch e manipulação de DOM</span></span><span class="tag">Projeto 1.1</span></li>
+              <li class="itemlist__row"><span><span class="itemlist__title">Filtros e ordenação em JavaScript</span><span class="itemlist__meta">Substituem a filtragem feita hoje em CSS</span></span><span class="tag">Projeto 1.1</span></li>
+              <li class="itemlist__row"><span><span class="itemlist__title">API REST e banco de dados</span><span class="itemlist__meta">Express.js, Prisma e PostgreSQL</span></span><span class="tag">Projeto 1.2</span></li>
+              <li class="itemlist__row"><span><span class="itemlist__title">Autenticação e autorização</span><span class="itemlist__meta">JWT e controle de acesso por perfil</span></span><span class="tag">Projeto 1.2</span></li>
+              <li class="itemlist__row"><span><span class="itemlist__title">Integração real com a AWS</span><span class="itemlist__meta">Cost Explorer, Budgets e CloudWatch</span></span><span class="tag">Futuro</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="notice">
+          <b>Protótipo de interface.</b> Todos os números exibidos são fictícios e representam um ambiente AWS
+          plausível com <span class="num">3</span> contas e <span class="num">428</span> recursos. Nesta etapa a
+          aplicação não se conecta a nenhuma API e não executa ações sobre a infraestrutura: o objetivo é validar a
+          organização das informações, a hierarquia visual e o fluxo de navegação entre as telas.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- #region footer (bloco repetido em todas as telas) -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>CloudFinOps · Projeto acadêmico · IFPB · Desenvolvimento Web 2026.2</p>
+      <p>Dados fictícios para fins de demonstração. Valores em US$.</p>
+    </div>
+  </footer>
+  <!-- #endregion footer -->
+</body>
+</html>

@@ -1,0 +1,65 @@
+/* CloudFinOps — design tokens
+   Tema escuro. Cor semantica apenas: nenhuma cor decorativa.
+   A cor de marca (--brand) e reservada a logo, foco, link e item ativo. */
+
+:root {
+  /* --- Superficies --- */
+  --bg: #0e1116;
+  --surface: #151a21;
+  --surface-raised: #1b222b;
+  --surface-sunken: #0a0d11;
+
+  /* --- Tinta --- */
+  --ink: #e6eaef;
+  --ink-muted: #a3adba;
+  --ink-faint: #7a8592;
+
+  /* --- Reguas --- */
+  --rule: #232b35;
+  --rule-strong: #323c48;
+  --rule-ink: #4e5b6a;
+
+  /* --- Marca --- */
+  --brand: #6e9bff;
+  --brand-dim: #2b3a5c;
+
+  /* --- Semantica --- */
+  --gain: #3fb980;
+  --gain-bg: #12291f;
+  --warn: #e0a32e;
+  --warn-bg: #2b2213;
+  --alert: #ef5b57;
+  --alert-bg: #2e1618;
+
+  /* --- Grafico --- */
+  --bar: #46566a;
+  --bar-lead: #6b7f97;
+
+  /* --- Tipografia --- */
+  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-num: ui-monospace, "SF Mono", "JetBrains Mono", "Roboto Mono",
+    Menlo, Consolas, monospace;
+
+  --size-3xs: 0.6875rem;
+  --size-2xs: 0.75rem;
+  --size-xs: 0.8125rem;
+  --size-sm: 0.875rem;
+  --size-md: 1rem;
+  --size-lg: 1.25rem;
+  --size-xl: 1.75rem;
+  --size-2xl: 2.25rem;
+
+  /* --- Espacamento (escala rigida: nao improvisar valores) --- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+
+  /* --- Layout --- */
+  --container: 1180px;
+  --radius: 4px;
+}

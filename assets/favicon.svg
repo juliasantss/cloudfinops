@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="CloudFinOps">
+  <title>CloudFinOps</title>
+  <rect width="32" height="32" rx="7" fill="#151A21"/>
+  <g transform="translate(4 5)">
+    <path d="M4.6 17.6h13.5a4.1 4.1 0 0 0 .4-8.18A6.6 6.6 0 0 0 5 6.9 4.5 4.5 0 0 0 4.6 17.6Z"
+          fill="none" stroke="#C6D0DC" stroke-width="1.6" stroke-linejoin="round"/>
+    <rect x="7.6"  y="9.4"  width="2.4" height="6.2" rx="0.8" fill="#6E9BFF"/>
+    <rect x="11.2" y="11.3" width="2.4" height="4.3" rx="0.8" fill="#6E9BFF" opacity="0.75"/>
+    <rect x="14.8" y="13.2" width="2.4" height="2.4" rx="0.8" fill="#6E9BFF" opacity="0.5"/>
+  </g>
+</svg>

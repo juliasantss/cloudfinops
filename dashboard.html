@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — CloudFinOps</title>
+  <meta name="description" content="Painel de custos de infraestrutura em nuvem: consumo, projeção, governança de tags e recomendações de otimização." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- #region topbar (bloco repetido em todas as telas) -->
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="index.html">
+        <svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 17.2h9.6a3.3 3.3 0 0 0 .3-6.58A5.3 5.3 0 0 0 7.3 8.9 3.65 3.65 0 0 0 7 17.2Z"
+                fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+          <rect x="9.4" y="10.5" width="1.9" height="5" rx="0.6" fill="#6e9bff" />
+          <rect x="12.2" y="12" width="1.9" height="3.5" rx="0.6" fill="#6e9bff" opacity="0.75" />
+          <rect x="15" y="13.5" width="1.9" height="2" rx="0.6" fill="#6e9bff" opacity="0.5" />
+        </svg>
+        Cloud<span class="brand__fin">FinOps</span>
+      </a>
+      <p class="topbar__meta">3 contas AWS · us-east-1, sa-east-1</p>
+    </div>
+  </header>
+
+  <nav class="mainnav" aria-label="Navegação principal">
+    <div class="container">
+      <ul class="mainnav__list">
+        <li><a class="mainnav__link" href="dashboard.html" aria-current="page">Dashboard</a></li>
+        <li><a class="mainnav__link" href="costs.html">Custos</a></li>
+        <li><a class="mainnav__link" href="anomalies.html">Anomalias</a></li>
+        <li><a class="mainnav__link" href="recommendations.html">Recomendações</a></li>
+        <li><a class="mainnav__link" href="budgets.html">Orçamentos</a></li>
+        <li><a class="mainnav__link" href="governance.html">Governança</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- #endregion topbar -->
+
+  <main id="conteudo" class="page">
+    <div class="container">
+
+      <div class="page__head">
+        <h1>Visão geral</h1>
+        <p class="page__context">Agosto de 2026 · dia <span class="num">22</span> de <span class="num">31</span> · valores em US$</p>
+      </div>
+
+      <!-- ===================== KPI ===================== -->
+      <section aria-labelledby="kpi-titulo">
+        <h2 id="kpi-titulo" class="sr-only">Indicadores do período</h2>
+        <div class="kpistrip">
+          <article class="kpi">
+            <span class="kpi__label" id="k1">Acumulado no mês</span>
+            <span class="kpi__value num" aria-labelledby="k1">6.510<span class="kpi__cents">,00</span></span>
+            <span class="kpi__meta">Média diária <span class="num">295,90</span></span>
+          </article>
+          <article class="kpi">
+            <span class="kpi__label" id="k2">Projeção de fechamento</span>
+            <span class="kpi__value num" aria-labelledby="k2">9.180<span class="kpi__cents">,00</span></span>
+            <span class="kpi__meta kpi__meta--warn">+<span class="num">9,0</span>% sobre julho</span>
+          </article>
+          <article class="kpi">
+            <span class="kpi__label" id="k3">Economia potencial</span>
+            <span class="kpi__value kpi__value--gain num" aria-labelledby="k3">1.340<span class="kpi__cents">,00</span></span>
+            <span class="kpi__meta"><span class="num">6</span> recomendações abertas</span>
+          </article>
+          <article class="kpi">
+            <span class="kpi__label" id="k4">FinOps Score</span>
+            <span class="kpi__value num" aria-labelledby="k4">82<span class="kpi__unit">/100</span></span>
+            <span class="meter"><span class="meter__fill" style="width: 82%"></span></span>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ Evolução + alertas ============ -->
+      <div class="split">
+        <section aria-labelledby="evolucao-titulo">
+          <div class="section__head">
+            <h2 id="evolucao-titulo">Evolução do custo mensal</h2>
+            <p class="section__note">últimos 8 meses</p>
+          </div>
+
+          <svg class="chart" viewBox="0 0 720 244" role="img" aria-labelledby="g-titulo g-desc">
+            <title id="g-titulo">Custo mensal de janeiro a agosto de 2026</title>
+            <desc id="g-desc">Janeiro 6.940, fevereiro 7.180, março 7.020, abril 7.460, maio 7.610, junho 7.680, julho 8.420 e agosto projetado em 9.180 dólares.</desc>
+            <defs>
+              <pattern id="hachura" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                <rect width="6" height="6" fill="var(--surface)" />
+                <line x1="0" y1="0" x2="0" y2="6" stroke="var(--rule-ink)" stroke-width="2" />
+              </pattern>
+            </defs>
+            <g class="chart__grid">
+              <line x1="48" y1="43" x2="704" y2="43" />
+              <line x1="48" y1="95" x2="704" y2="95" />
+              <line x1="48" y1="148" x2="704" y2="148" />
+            </g>
+            <line class="chart__axis" x1="48" y1="200" x2="704" y2="200" />
+            <g class="chart__label" text-anchor="end">
+              <text x="40" y="47">9.000</text>
+              <text x="40" y="99">6.000</text>
+              <text x="40" y="152">3.000</text>
+              <text x="40" y="204">0</text>
+            </g>
+            <g class="chart__bar">
+              <rect x="65" y="79" width="48" height="121" />
+              <rect x="147" y="75" width="48" height="125" />
+              <rect x="229" y="78" width="48" height="122" />
+              <rect x="311" y="70" width="48" height="130" />
+              <rect x="393" y="67" width="48" height="133" />
+              <rect x="475" y="66" width="48" height="134" />
+            </g>
+            <rect class="chart__bar--lead" x="557" y="53" width="48" height="147" />
+            <rect x="639" y="40" width="48" height="160" fill="url(#hachura)" stroke="var(--rule-ink)" stroke-width="1" />
+            <g class="chart__label" text-anchor="middle">
+              <text x="89" y="218">jan</text>
+              <text x="171" y="218">fev</text>
+              <text x="253" y="218">mar</text>
+              <text x="335" y="218">abr</text>
+              <text x="417" y="218">mai</text>
+              <text x="499" y="218">jun</text>
+              <text x="581" y="218">jul</text>
+              <text x="663" y="218">ago</text>
+            </g>
+          </svg>
+
+          <p class="chart__legend">
+            <span><i class="chart__key"></i>Realizado</span>
+            <span><i class="chart__key chart__key--forecast"></i>Projetado</span>
+          </p>
+        </section>
+
+        <section aria-labelledby="alertas-titulo">
+          <div class="section__head">
+            <h2 id="alertas-titulo">Alertas recentes</h2>
+            <a class="section__note" href="anomalies.html">Ver todos</a>
+          </div>
+          <ul class="itemlist">
+            <li class="itemlist__row">
+              <span>
+                <span class="itemlist__title">NAT Gateway acima da linha de base</span>
+                <span class="itemlist__meta">18/08 · sa-east-1 · base <span class="num">US$ 355</span> → observado <span class="num">US$ 1.020</span></span>
+              </span>
+              <span class="tag tag--alert">Crítica</span>
+            </li>
+            <li class="itemlist__row">
+              <span>
+                <span class="itemlist__title">Data Transfer entre regiões</span>
+                <span class="itemlist__meta">16/08 · conta produção · <span class="num">+31,5%</span></span>
+              </span>
+              <span class="tag tag--warn">Média</span>
+            </li>
+            <li class="itemlist__row">
+              <span>
+                <span class="itemlist__title">Orçamento de staging em 91%</span>
+                <span class="itemlist__meta">14/08 · projeção de estouro em <span class="num">4</span> dias</span>
+              </span>
+              <span class="tag tag--warn">Atenção</span>
+            </li>
+            <li class="itemlist__row">
+              <span>
+                <span class="itemlist__title">CloudWatch Logs sem política de retenção</span>
+                <span class="itemlist__meta">11/08 · <span class="num">9</span> grupos de log</span>
+              </span>
+              <span class="tag">Baixa</span>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- ===================== Custos por serviço ===================== -->
+      <section class="section" aria-labelledby="custos-titulo">
+        <div class="section__head">
+          <h2 id="custos-titulo">Custos por serviço</h2>
+          <a class="section__note" href="costs.html">Análise detalhada</a>
+        </div>
+
+        <div class="filterable">
+          <input class="filter__input" type="radio" name="categoria" id="f-all" checked />
+          <input class="filter__input" type="radio" name="categoria" id="f-comp" />
+          <input class="filter__input" type="radio" name="categoria" id="f-net" />
+          <input class="filter__input" type="radio" name="categoria" id="f-store" />
+          <input class="filter__input" type="radio" name="categoria" id="f-db" />
+          <input class="filter__input" type="radio" name="categoria" id="f-obs" />
+
+          <div class="filterbar" role="group" aria-label="Filtrar serviços por categoria">
+            <label class="chip" for="f-all">Todos <span class="chip__count">9</span></label>
+            <label class="chip" for="f-comp">Computação <span class="chip__count">2</span></label>
+            <label class="chip" for="f-net">Rede <span class="chip__count">2</span></label>
+            <label class="chip" for="f-store">Armazenamento <span class="chip__count">2</span></label>
+            <label class="chip" for="f-db">Banco de dados <span class="chip__count">1</span></label>
+            <label class="chip" for="f-obs">Observabilidade <span class="chip__count">1</span></label>
+          </div>
+
+          <ul class="costlist">
+            <li class="cat-comp">
+              <details class="expander">
+                <summary class="expander__summary">
+                  <i class="chev" aria-hidden="true"></i>
+                  <span class="expander__title">Amazon EC2
+                    <span class="expander__sub">Computação · 45,4% do total · 118 instâncias</span>
+                  </span>
+                  <span class="expander__value num">3.820,00</span>
+                  <span class="tag">+4,1%</span>
+                </summary>
+                <div class="expander__body">
+                  <dl class="kv">
+                    <dt>Por ambiente</dt>
+                    <dd>prod <span class="num">2.640,00</span> · staging <span class="num">780,00</span> · dev <span class="num">400,00</span></dd>
+                    <dt>Região</dt>
+                    <dd>us-east-1 <span class="num">2.910,00</span> · sa-east-1 <span class="num">910,00</span></dd>
+                    <dt>Tags aplicadas</dt>
+                    <dd>
+                      <span class="tagpair">OwnerTeam=plataforma</span>
+                      <span class="tagpair">Environment=prod</span>
+                      <span class="tagpair tagpair--missing">ManagedBy ausente</span>
+                    </dd>
+                    <dt>Conformidade</dt>
+                    <dd><span class="num">96</span> de <span class="num">118</span> recursos com as três tags</dd>
+                    <dt>Observação</dt>
+                    <dd>4 instâncias com CPU média abaixo de 12% — ver recomendação de rightsizing</dd>
+                  </dl>
+                </div>
+              </details>
+            </li>
+
+            <li class="cat-db">
+              <details class="expander">
+                <summary class="expander__summary">
+                  <i class="chev" aria-hidden="true"></i>
+                  <span class="expander__title">Amazon RDS
+                    <span class="expander__sub">Banco de dados · 20,5% do total · 9 instâncias</span>
+                  </span>
+                  <span class="expander__value num">1.730,00</span>
+                  <span class="tag">+2,3%</span>
+                </summary>
+                <div class="expander__body">
+                  <dl class="kv">
+                    <dt>Por ambiente</dt>
+                    <dd>prod <span class="num">1.290,00</span> · staging <span class="num">340,00</span> · dev <span class="num">100,00</span></dd>
+                    <dt>Região</dt>
+                    <dd>us-east-1 <span class="num">1.730,00</span></dd>
+                    <dt>Tags aplicadas</dt>
+                    <dd>
+                      <span class="tagpair">Environment=prod</span>
+                      <span class="tagpair">ManagedBy=terraform</span>
+                      <span class="tagpair tagpair--missing">OwnerTeam ausente</span>
+                    </dd>
+                    <dt>Conformidade</dt>
+                    <dd><span class="num">7</span> de <span class="num">9</span> recursos com as três tags</dd>
+                    <dt>Observação</dt>
+                    <dd>db-analytics-01 sem responsável definido, <span class="num">288,00</span> por mês</dd>
+                  </dl>
+                </div>
+              </details>
+            </li>
+
+            <li class="cat-net">
+              <details class="expander">
+                <summary class="expander__summary">
+                  <i class="chev" aria-hidden="true"></i>
+                  <span class="expander__title">NAT Gateway
+                    <span class="expander__sub">Rede · 12,1% do total · 3 gateways</span>
+                  </span>
+                  <span class="expander__value num">1.020,00</span>
+                  <span class="tag tag--alert">+187,0%</span>
+                </summary>
+                <div class="expander__body">
+                  <dl class="kv">
+                    <dt>Por ambiente</dt>
+                    <dd>prod <span class="num">680,00</span> · staging <span class="num">210,00</span> · dev <span class="num">130,00</span></dd>
+                    <dt>Composição</dt>
+                    <dd>taxa fixa <span class="num">98,00</span> · processamento de dados <span class="num">922,00</span></dd>
+                    <dt>Tags aplicadas</dt>
+                    <dd>
+                      <span class="tagpair">OwnerTeam=redes</span>
+                      <span class="tagpair">Environment=prod</span>
+                      <span class="tagpair tagpair--missing">ManagedBy ausente</span>
+                    </dd>
+                    <dt>Causa provável</dt>
+                    <dd>Tráfego para S3 e DynamoDB roteado pelo NAT em vez de VPC Endpoints</dd>
+                    <dt>Observação</dt>
+                    <dd>Maior variação do período. Economia estimada de <span class="num">310,00</span> por mês</dd>
+                  </dl>
+                </div>
+              </details>
+            </li>
+
+            <li class="cat-store">
+              <details class="expander">
+                <summary class="expander__summary">
+                  <i class="chev" aria-hidden="true"></i>
+                  <span class="expander__title">Amazon S3
+                    <span class="expander__sub">Armazenamento · 7,6% do total · 24 buckets</span>
+                  </span>
+                  <span class="expander__value num">640,00</span>
+                  <span class="tag">+8,4%</span>
+                </summary>
+                <div class="expander__body">
+                  <dl class="kv">
+                    <dt>Por ambiente</dt>
+                    <dd>prod <span class="num">470,00</span> · staging <span class="num">110,00</span> · dev <span class="num">60,00</span></dd>
+                    <dt>Classe de armazenamento</dt>
+                    <dd>Standard <span class="num">590,00</span> · Glacier <span class="num">50,00</span></dd>
+                    <dt>Tags aplicadas</dt>
+                    <dd>
+                      <span class="tagpair">OwnerTeam=dados</span>
+                      <span class="tagpair">Environment=prod</span>
+                      <span class="tagpair">ManagedBy=terraform</span>
+                    </dd>
+                    <dt>Conformidade</dt>
+                    <dd><span class="num">24</span> de <span class="num">24</span> recursos com as três tags</dd>
+                    <dt>Observação</dt>
+                    <dd>11 buckets sem regra de ciclo de vida configurada</dd>
+                  </dl>
+                </div>
+              </details>
+            </li>
+
+            <li class="cat-obs">
+              <details class="expander">
+                <summary class="expander__summary">
+                  <i class="chev" aria-hidden="true"></i>
+                  <span class="expander__title">Amazon CloudWatch
+                    <span class="expander__sub">Observabilidade · 5,1% do total · 62 grupos de log</span>
+                  </span>
+                  <span class="expander__value num">430,00</span>
+                  <span class="tag tag--warn">+12,7%</span>
+                </summary>
+                <div class="expander__body">
+                  <dl class="kv">
+                    <dt>Por ambiente</dt>
+                    <dd>prod <span class="num">300,00</span> · staging <span class="num">80,00</span> · dev <span class="num">50,00</span></dd>
+                    <dt>Composição</dt>
+                    <dd>ingestão de logs <span class="num">310,00</span> · métricas <span class="num">120,00</span></dd>
+                    <dt>Tags aplicadas</dt>
+                    <dd>
+                      <span class="tagpair">Environment=prod</span>
+                      <span class="tagpair tagpair--missing">OwnerTeam ausente</span>
+                      <span class="tagpair tagpair--missing">ManagedBy ausente</span>
+                    </dd>
+                    <dt>Conformidade</dt>
+                    <dd><span class="num">38</span> de <span class="num">62</span> recursos com as três tags</dd>
+                    <dt>Observação</dt>
+                    <dd>9 grupos de log com retenção indefinida acumulando volume</dd>
+                  </dl>
+                </div>
+              </details>
+            </li>
+
+            <li class="cat-store">
+              <details class="expander">
+                <summary class="expander__summary">
+                  <i class="chev" aria-hidden="true"></i>
+                  <span class="expander__title">Amazon EBS
+                    <span class="expander__sub">Armazenamento · 3,7% do total · 74 volumes</span>
+                  </span>
+                  <span class="expander__value num">310,00</span>
+                  <span class="tag">+1,2%</span>
+                </summary>
+                <div class="expander__body">
+                  <dl class="kv">
+                    <dt>Por ambiente</dt>
+                    <dd>prod <span class="num">190,00</span> · staging <span class="num">70,00</span> · dev <span class="num">50,00</span></dd>
+                    <dt>Estado</dt>
+                    <dd>anexados <span class="num">246,00</span> · órfãos <span class="num">64,00</span></dd>
+                    <dt>Tags aplicadas</dt>
+                    <dd>
+                      <span class="tagpair">Environment=dev</span>
+                      <span class="tagpair tagpair--missing">OwnerTeam ausente</span>
+                      <span class="tagpair tagpair--missing">ManagedBy ausente</span>
+                    </dd>
+                    <dt>Conformidade</dt>
+                    <dd><span class="num">51</span> de <span class="num">74</span> recursos com as três tags</dd>
+                    <dt>Observação</dt>
+                    <dd>12 volumes sem anexo há mais de 60 dias</dd>
+                  </dl>
+                </div>
+              </details>
+            </li>
+
+            <li class="cat-net">
+              <details class="expander">
+                <summary class="expander__summary">
+                  <i class="chev" aria-hidden="true"></i>
+                  <span class="expander__title">Data Transfer
+                    <span class="expander__sub">Rede · 2,9% do total · saída e entre regiões</span>
+                  </span>
+                  <span class="expander__value num">240,00</span>
+                  <span class="tag tag--warn">+31,5%</span>
+                </summary>
+                <div class="expander__body">
+                  <dl class="kv">
+                    <dt>Por ambiente</dt>
+                    <dd>prod <span class="num">180,00</span> · staging <span class="num">40,00</span> · dev <span class="num">20,00</span></dd>
+                    <dt>Composição</dt>
+                    <dd>saída para internet <span class="num">150,00</span> · entre regiões <span class="num">90,00</span></dd>
+                    <dt>Tags aplicadas</dt>
+                    <dd><span class="tagpair">Não aplicável a este tipo de custo</span></dd>
+                    <dt>Causa provável</dt>
+                    <dd>Réplica de leitura em sa-east-1 sincronizando com us-east-1</dd>
+                    <dt>Observação</dt>
+                    <dd>Segunda maior variação do período</dd>
+                  </dl>
+                </div>
+              </details>
+            </li>
+
+            <li class="cat-comp">
+              <details class="expander">
+                <summary class="expander__summary">
+                  <i class="chev" aria-hidden="true"></i>
+                  <span class="expander__title">AWS Lambda
+                    <span class="expander__sub">Computação · 1,5% do total · 41 funções</span>
+                  </span>
+                  <span class="expander__value num">130,00</span>
+                  <span class="tag tag--gain">−3,0%</span>
+                </summary>
+                <div class="expander__body">
+                  <dl class="kv">
+                    <dt>Por ambiente</dt>
+                    <dd>prod <span class="num">90,00</span> · staging <span class="num">25,00</span> · dev <span class="num">15,00</span></dd>
+                    <dt>Composição</dt>
+                    <dd>invocações <span class="num">48,00</span> · duração <span class="num">82,00</span></dd>
+                    <dt>Tags aplicadas</dt>
+                    <dd>
+                      <span class="tagpair">OwnerTeam=backend</span>
+                      <span class="tagpair">Environment=prod</span>
+                      <span class="tagpair">ManagedBy=serverless</span>
+                    </dd>
+                    <dt>Conformidade</dt>
+                    <dd><span class="num">41</span> de <span class="num">41</span> recursos com as três tags</dd>
+                    <dt>Observação</dt>
+                    <dd>Único serviço com redução no período</dd>
+                  </dl>
+                </div>
+              </details>
+            </li>
+
+            <li class="cat-outros">
+              <details class="expander">
+                <summary class="expander__summary">
+                  <i class="chev" aria-hidden="true"></i>
+                  <span class="expander__title">Outros serviços
+                    <span class="expander__sub">1,2% do total · Route 53, Secrets Manager, ECR</span>
+                  </span>
+                  <span class="expander__value num">100,00</span>
+                  <span class="tag">+0,5%</span>
+                </summary>
+                <div class="expander__body">
+                  <dl class="kv">
+                    <dt>Por ambiente</dt>
+                    <dd>prod <span class="num">70,00</span> · staging <span class="num">20,00</span> · dev <span class="num">10,00</span></dd>
+                    <dt>Composição</dt>
+                    <dd>Route 53 <span class="num">42,00</span> · Secrets Manager <span class="num">36,00</span> · ECR <span class="num">22,00</span></dd>
+                    <dt>Observação</dt>
+                    <dd>Serviços abaixo do limite de 1% exibidos de forma agregada</dd>
+                  </dl>
+                </div>
+              </details>
+            </li>
+          </ul>
+
+          <p class="costtotal">
+            <span class="tot-all">Total exibido: todos os serviços · <span class="num">9</span> itens</span>
+            <span class="tot-comp">Total exibido: computação · <span class="num">2</span> itens</span>
+            <span class="tot-net">Total exibido: rede · <span class="num">2</span> itens</span>
+            <span class="tot-store">Total exibido: armazenamento · <span class="num">2</span> itens</span>
+            <span class="tot-db">Total exibido: banco de dados · <span class="num">1</span> item</span>
+            <span class="tot-obs">Total exibido: observabilidade · <span class="num">1</span> item</span>
+            <span class="costtotal__value">
+              <span class="tot-all num">US$ 8.420,00</span>
+              <span class="tot-comp num">US$ 3.950,00</span>
+              <span class="tot-net num">US$ 1.260,00</span>
+              <span class="tot-store num">US$ 950,00</span>
+              <span class="tot-db num">US$ 1.730,00</span>
+              <span class="tot-obs num">US$ 430,00</span>
+            </span>
+          </p>
+        </div>
+      </section>
+
+      <!-- ===================== Governança de tags ===================== -->
+      <section class="section" aria-labelledby="tags-titulo">
+        <div class="section__head">
+          <h2 id="tags-titulo">Governança de tags</h2>
+          <a class="section__note" href="governance.html">Ver inventário completo</a>
+        </div>
+
+        <div class="tagblock">
+          <div>
+            <div class="impact">
+              <span class="label" id="impacto-label">Custo sem responsável</span>
+              <span class="impact__value num" aria-labelledby="impacto-label">1.180<span class="kpi__cents">,00</span></span>
+              <span class="impact__note">
+                <span class="num">14,0%</span> do gasto de julho está em recursos sem a tag
+                <span class="tagkey">OwnerTeam</span> e não pode ser atribuído a nenhuma equipe.
+              </span>
+            </div>
+
+            <div class="taglist">
+              <div class="taglist__item">
+                <div class="taglist__head">
+                  <span class="tagkey">OwnerTeam</span>
+                  <span class="taglist__pct num">84,3%</span>
+                </div>
+                <span class="meter"><span class="meter__fill meter__fill--warn" style="width: 84.3%"></span></span>
+                <span class="taglist__meta"><span class="num">67</span> de <span class="num">428</span> recursos sem a tag · <span class="num">US$ 1.180,00</span></span>
+              </div>
+              <div class="taglist__item">
+                <div class="taglist__head">
+                  <span class="tagkey">Environment</span>
+                  <span class="taglist__pct num">94,2%</span>
+                </div>
+                <span class="meter"><span class="meter__fill meter__fill--gain" style="width: 94.2%"></span></span>
+                <span class="taglist__meta"><span class="num">25</span> de <span class="num">428</span> recursos sem a tag · <span class="num">US$ 390,00</span></span>
+              </div>
+              <div class="taglist__item">
+                <div class="taglist__head">
+                  <span class="tagkey">ManagedBy</span>
+                  <span class="taglist__pct num">69,2%</span>
+                </div>
+                <span class="meter"><span class="meter__fill meter__fill--alert" style="width: 69.2%"></span></span>
+                <span class="taglist__meta"><span class="num">132</span> de <span class="num">428</span> recursos sem a tag · <span class="num">US$ 1.640,00</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <table class="datatable">
+              <caption>
+                Recursos fora de conformidade, ordenados por custo mensal.
+                <span class="num">271</span> de <span class="num">428</span> recursos possuem as três tags obrigatórias (<span class="num">63,3%</span>).
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Recurso</th>
+                  <th scope="col">Tags ausentes</th>
+                  <th scope="col" class="is-numeric">Custo/mês</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><span class="num">i-0a3f7c1e</span><span class="datatable__sub">EC2 t3.large · us-east-1</span></th>
+                  <td><span class="tag tag--alert tagkey">OwnerTeam</span> <span class="tag tag--alert tagkey">ManagedBy</span></td>
+                  <td class="is-numeric num">412,00</td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="num">nat-0d914b22</span><span class="datatable__sub">NAT Gateway · sa-east-1</span></th>
+                  <td><span class="tag tag--alert tagkey">ManagedBy</span></td>
+                  <td class="is-numeric num">340,00</td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="num">db-analytics-01</span><span class="datatable__sub">RDS db.t3.medium · us-east-1</span></th>
+                  <td><span class="tag tag--alert tagkey">OwnerTeam</span></td>
+                  <td class="is-numeric num">288,00</td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="num">vol-07c2ae55</span><span class="datatable__sub">EBS gp3 500 GB · sem anexo</span></th>
+                  <td><span class="tag tag--alert tagkey">OwnerTeam</span> <span class="tag tag--alert tagkey">Environment</span> <span class="tag tag--alert tagkey">ManagedBy</span></td>
+                  <td class="is-numeric num">64,00</td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="num">eipalloc-3b8f01</span><span class="datatable__sub">Elastic IP · não associado</span></th>
+                  <td><span class="tag tag--alert tagkey">OwnerTeam</span> <span class="tag tag--alert tagkey">ManagedBy</span></td>
+                  <td class="is-numeric num">12,00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Recomendações ===================== -->
+      <section class="section" aria-labelledby="rec-titulo">
+        <div class="section__head">
+          <h2 id="rec-titulo">Recomendações de otimização</h2>
+          <a class="section__note" href="recommendations.html">Ver todas</a>
+        </div>
+
+        <ul class="reclist">
+          <li>
+            <details class="expander">
+              <summary class="expander__summary">
+                <i class="chev" aria-hidden="true"></i>
+                <span class="expander__title">Substituir rotas do NAT Gateway por VPC Endpoints
+                  <span class="expander__sub">Rede · esforço médio · risco baixo</span>
+                </span>
+                <span class="rec__amount">310,00/mês</span>
+                <span class="tag tag--alert">Crítica</span>
+              </summary>
+              <div class="expander__body">
+                <dl class="kv">
+                  <dt>Problema</dt>
+                  <dd>Tráfego entre instâncias privadas e os serviços S3 e DynamoDB atravessa o NAT Gateway, gerando cobrança por GB processado sobre dados que nunca saem da rede da AWS.</dd>
+                  <dt>Recursos afetados</dt>
+                  <dd><span class="num">3</span> NAT Gateways · <span class="num">2</span> VPCs</dd>
+                  <dt>Ação sugerida</dt>
+                  <dd>Criar Gateway Endpoints para S3 e DynamoDB nas VPCs afetadas e ajustar as tabelas de rotas das sub-redes privadas.</dd>
+                  <dt>Boa prática</dt>
+                  <dd>Well-Architected, pilar de otimização de custos: eliminar transferência de dados desnecessária antes de reduzir capacidade.</dd>
+                </dl>
+                <p class="rec__actions">Gateway Endpoints não têm cobrança por hora nem por GB. A mudança é reversível pela tabela de rotas.</p>
+              </div>
+            </details>
+          </li>
+
+          <li>
+            <details class="expander">
+              <summary class="expander__summary">
+                <i class="chev" aria-hidden="true"></i>
+                <span class="expander__title">Rightsizing de 4 instâncias EC2 subutilizadas
+                  <span class="expander__sub">Computação · esforço médio · risco médio</span>
+                </span>
+                <span class="rec__amount">480,00/mês</span>
+                <span class="tag tag--warn">Alta</span>
+              </summary>
+              <div class="expander__body">
+                <dl class="kv">
+                  <dt>Problema</dt>
+                  <dd>Quatro instâncias mantêm CPU média abaixo de 12% e pico abaixo de 30% ao longo de 30 dias, indicando família ou tamanho superdimensionados.</dd>
+                  <dt>Recursos afetados</dt>
+                  <dd><span class="num">2</span> m5.2xlarge · <span class="num">2</span> m5.xlarge · ambiente prod</dd>
+                  <dt>Ação sugerida</dt>
+                  <dd>Reduzir um nível de tamanho na mesma família e observar por duas semanas antes de consolidar.</dd>
+                  <dt>Boa prática</dt>
+                  <dd>Avaliar memória e rede junto com CPU: reduzir apenas por CPU pode gerar gargalo de outro recurso.</dd>
+                </dl>
+                <p class="rec__actions">Requer janela de manutenção. Recomenda-se aplicar primeiro em staging.</p>
+              </div>
+            </details>
+          </li>
+
+          <li>
+            <details class="expander">
+              <summary class="expander__summary">
+                <i class="chev" aria-hidden="true"></i>
+                <span class="expander__title">Contratar Savings Plans para a carga estável
+                  <span class="expander__sub">Compromisso · esforço baixo · risco médio</span>
+                </span>
+                <span class="rec__amount">260,00/mês</span>
+                <span class="tag tag--warn">Alta</span>
+              </summary>
+              <div class="expander__body">
+                <dl class="kv">
+                  <dt>Problema</dt>
+                  <dd>Uma base estável de computação roda sob demanda há mais de seis meses, sem qualquer cobertura por compromisso de uso.</dd>
+                  <dt>Recursos afetados</dt>
+                  <dd>Baseline de <span class="num">US$ 1.850,00</span> por mês em EC2 e Lambda</dd>
+                  <dt>Ação sugerida</dt>
+                  <dd>Compute Savings Plans de 1 ano com pagamento parcial adiantado, cobrindo 70% da base — nunca 100%.</dd>
+                  <dt>Boa prática</dt>
+                  <dd>Cobrir apenas o piso histórico de consumo preserva flexibilidade para redimensionar sem desperdiçar compromisso.</dd>
+                </dl>
+                <p class="rec__actions">Compromisso financeiro de 12 meses. Exige aprovação de quem responde pelo orçamento.</p>
+              </div>
+            </details>
+          </li>
+
+          <li>
+            <details class="expander">
+              <summary class="expander__summary">
+                <i class="chev" aria-hidden="true"></i>
+                <span class="expander__title">Remover 12 volumes EBS órfãos e snapshots antigos
+                  <span class="expander__sub">Armazenamento · esforço baixo · risco baixo</span>
+                </span>
+                <span class="rec__amount">140,00/mês</span>
+                <span class="tag">Média</span>
+              </summary>
+              <div class="expander__body">
+                <dl class="kv">
+                  <dt>Problema</dt>
+                  <dd>Volumes desanexados continuam sendo cobrados integralmente. Doze deles estão sem anexo há mais de 60 dias, e nenhum possui a tag OwnerTeam.</dd>
+                  <dt>Recursos afetados</dt>
+                  <dd><span class="num">12</span> volumes gp3 · <span class="num">38</span> snapshots com mais de 180 dias</dd>
+                  <dt>Ação sugerida</dt>
+                  <dd>Criar snapshot final, aguardar 30 dias de quarentena e então excluir os volumes.</dd>
+                  <dt>Boa prática</dt>
+                  <dd>Recurso sem dono não deve ser excluído sem quarentena: a ausência de tag não prova que o recurso é descartável.</dd>
+                </dl>
+                <p class="rec__actions">Bloqueado até que os recursos recebam OwnerTeam e o dono confirme o descarte.</p>
+              </div>
+            </details>
+          </li>
+
+          <li>
+            <details class="expander">
+              <summary class="expander__summary">
+                <i class="chev" aria-hidden="true"></i>
+                <span class="expander__title">Aplicar ciclo de vida nos buckets S3
+                  <span class="expander__sub">Armazenamento · esforço baixo · risco baixo</span>
+                </span>
+                <span class="rec__amount">90,00/mês</span>
+                <span class="tag">Média</span>
+              </summary>
+              <div class="expander__body">
+                <dl class="kv">
+                  <dt>Problema</dt>
+                  <dd>Onze buckets mantêm todo o conteúdo na classe Standard, incluindo objetos sem acesso registrado nos últimos 90 dias.</dd>
+                  <dt>Recursos afetados</dt>
+                  <dd><span class="num">11</span> buckets · <span class="num">2,4</span> TB elegíveis</dd>
+                  <dt>Ação sugerida</dt>
+                  <dd>Habilitar Intelligent-Tiering nos buckets de log e backup, com transição para Glacier após 180 dias.</dd>
+                  <dt>Boa prática</dt>
+                  <dd>Verificar requisitos de retenção antes de mover dados: recuperação a partir do Glacier tem custo e latência.</dd>
+                </dl>
+                <p class="rec__actions">Sem impacto na disponibilidade. Aplicável por política, sem migração manual.</p>
+              </div>
+            </details>
+          </li>
+
+          <li>
+            <details class="expander">
+              <summary class="expander__summary">
+                <i class="chev" aria-hidden="true"></i>
+                <span class="expander__title">Liberar 6 Elastic IPs não associados
+                  <span class="expander__sub">Rede · esforço baixo · risco baixo</span>
+                </span>
+                <span class="rec__amount">60,00/mês</span>
+                <span class="tag">Baixa</span>
+              </summary>
+              <div class="expander__body">
+                <dl class="kv">
+                  <dt>Problema</dt>
+                  <dd>Endereços IPv4 elásticos são cobrados por hora quando não estão associados a uma instância em execução.</dd>
+                  <dt>Recursos afetados</dt>
+                  <dd><span class="num">6</span> endereços · us-east-1 e sa-east-1</dd>
+                  <dt>Ação sugerida</dt>
+                  <dd>Confirmar que nenhum endereço está em lista de permissão externa e então liberar a alocação.</dd>
+                  <dt>Boa prática</dt>
+                  <dd>Registrar o IP antes de liberar: o endereço não é recuperável depois da liberação.</dd>
+                </dl>
+                <p class="rec__actions">Menor economia da lista, porém a de execução mais simples.</p>
+              </div>
+            </details>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- #region footer (bloco repetido em todas as telas) -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>CloudFinOps · Projeto acadêmico · IFPB · Desenvolvimento Web 2026.2</p>
+      <p>Dados fictícios para fins de demonstração. Valores em US$.</p>
+    </div>
+  </footer>
+  <!-- #endregion footer -->
+</body>
+</html>

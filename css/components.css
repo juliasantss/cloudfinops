@@ -1,0 +1,356 @@
+/* CloudFinOps — componentes reutilizaveis */
+
+/* ==========================================================
+   Faixa de KPI — medicoes separadas por regua, sem cartao
+   ========================================================== */
+.kpistrip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.kpi {
+  padding: var(--sp-5) var(--sp-4) var(--sp-5) 0;
+  border-right: 1px solid var(--rule);
+}
+
+.kpi:first-child { padding-left: 0; }
+.kpi:last-child { border-right: 0; padding-right: 0; }
+.kpi:not(:first-child) { padding-left: var(--sp-4); }
+
+.kpi__label {
+  display: block;
+  margin-bottom: var(--sp-3);
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+}
+
+.kpi__value {
+  display: block;
+  font-size: var(--size-xl);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.kpi__cents,
+.kpi__unit { font-size: var(--size-sm); color: var(--ink-faint); }
+
+.kpi__meta {
+  display: block;
+  margin-top: var(--sp-2);
+  font-size: var(--size-3xs);
+  color: var(--ink-muted);
+}
+
+.kpi__value--gain { color: var(--gain); }
+.kpi__meta--warn { color: var(--warn); }
+.kpi__meta--alert { color: var(--alert); }
+
+/* ==========================================================
+   Medidor (barra fina)
+   ========================================================== */
+.meter {
+  display: block;
+  height: 3px;
+  margin-top: var(--sp-3);
+  background: var(--rule);
+}
+
+.meter__fill { display: block; height: 100%; background: var(--ink-faint); }
+.meter__fill--gain { background: var(--gain); }
+.meter__fill--warn { background: var(--warn); }
+.meter__fill--alert { background: var(--alert); }
+
+/* ==========================================================
+   Tabela de dados
+   ========================================================== */
+.datatable { width: 100%; border-collapse: collapse; font-size: var(--size-xs); }
+
+.datatable caption {
+  text-align: left;
+  padding-bottom: var(--sp-3);
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+  line-height: 1.45;
+}
+
+.datatable th,
+.datatable td {
+  padding: var(--sp-3) var(--sp-3) var(--sp-3) 0;
+  text-align: left;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+}
+
+.datatable thead th {
+  font-size: var(--size-3xs);
+  font-weight: 400;
+  color: var(--ink-faint);
+  border-bottom-color: var(--rule-strong);
+}
+
+.datatable tbody th { font-weight: 400; }
+.datatable tbody tr:last-child th,
+.datatable tbody tr:last-child td { border-bottom: 0; }
+.datatable th:last-child,
+.datatable td:last-child { padding-right: 0; }
+
+.is-numeric { text-align: right; white-space: nowrap; }
+
+.datatable__sub {
+  display: block;
+  font-size: var(--size-3xs);
+  color: var(--ink-faint);
+}
+
+.delta--up { color: var(--ink-muted); }
+.delta--alert { color: var(--alert); }
+.delta--gain { color: var(--gain); }
+
+/* ==========================================================
+   Etiqueta de estado — cor sempre acompanhada de texto
+   ========================================================== */
+.tag {
+  display: inline-block;
+  padding: 1px var(--sp-2);
+  font-size: var(--size-3xs);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.tag--alert { color: var(--alert); border-color: var(--alert); background: var(--alert-bg); }
+.tag--warn { color: var(--warn); border-color: var(--warn); background: var(--warn-bg); }
+.tag--gain { color: var(--gain); border-color: var(--gain); background: var(--gain-bg); }
+
+/* Chave de tag AWS (OwnerTeam, Environment, ManagedBy) */
+.tagkey { font-family: var(--font-num); font-size: var(--size-3xs); }
+
+/* Par chave=valor de tag aplicada */
+.tagpair {
+  display: inline-block;
+  padding: 1px var(--sp-2);
+  font-family: var(--font-num);
+  font-size: var(--size-3xs);
+  color: var(--ink-muted);
+  background: var(--surface-raised);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+
+.tagpair--missing {
+  color: var(--alert);
+  border-color: var(--alert);
+  background: var(--alert-bg);
+}
+
+/* ==========================================================
+   Filtro por categoria — radio + seletor irmao, sem JavaScript
+   ========================================================== */
+.filterable { padding-top: var(--sp-4); }
+
+.filter__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.filterbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  padding-bottom: var(--sp-4);
+}
+
+.chip {
+  display: inline-block;
+  padding: var(--sp-1) var(--sp-3);
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.chip:hover { color: var(--ink); border-color: var(--ink-faint); }
+
+.chip__count { font-family: var(--font-num); color: var(--ink-faint); }
+
+/* Estado ativo de cada chip */
+#f-all:checked    ~ .filterbar .chip[for="f-all"],
+#f-comp:checked   ~ .filterbar .chip[for="f-comp"],
+#f-net:checked    ~ .filterbar .chip[for="f-net"],
+#f-store:checked  ~ .filterbar .chip[for="f-store"],
+#f-db:checked     ~ .filterbar .chip[for="f-db"],
+#f-obs:checked    ~ .filterbar .chip[for="f-obs"] {
+  color: var(--bg);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+#f-all:checked    ~ .filterbar .chip[for="f-all"] .chip__count,
+#f-comp:checked   ~ .filterbar .chip[for="f-comp"] .chip__count,
+#f-net:checked    ~ .filterbar .chip[for="f-net"] .chip__count,
+#f-store:checked  ~ .filterbar .chip[for="f-store"] .chip__count,
+#f-db:checked     ~ .filterbar .chip[for="f-db"] .chip__count,
+#f-obs:checked    ~ .filterbar .chip[for="f-obs"] .chip__count { color: var(--bg); opacity: 0.6; }
+
+/* Foco de teclado espelhado no chip correspondente */
+#f-all:focus-visible    ~ .filterbar .chip[for="f-all"],
+#f-comp:focus-visible   ~ .filterbar .chip[for="f-comp"],
+#f-net:focus-visible    ~ .filterbar .chip[for="f-net"],
+#f-store:focus-visible  ~ .filterbar .chip[for="f-store"],
+#f-db:focus-visible     ~ .filterbar .chip[for="f-db"],
+#f-obs:focus-visible    ~ .filterbar .chip[for="f-obs"] {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* Filtragem das linhas */
+#f-comp:checked  ~ .costlist > li:not(.cat-comp),
+#f-net:checked   ~ .costlist > li:not(.cat-net),
+#f-store:checked ~ .costlist > li:not(.cat-store),
+#f-db:checked    ~ .costlist > li:not(.cat-db),
+#f-obs:checked   ~ .costlist > li:not(.cat-obs) { display: none; }
+
+/* Total correspondente ao filtro ativo */
+.costtotal .tot-all,
+.costtotal .tot-comp,
+.costtotal .tot-net,
+.costtotal .tot-store,
+.costtotal .tot-db,
+.costtotal .tot-obs { display: none; }
+
+.costtotal__value { color: var(--ink); }
+#f-all:checked    ~ .costtotal .tot-all,
+#f-comp:checked   ~ .costtotal .tot-comp,
+#f-net:checked    ~ .costtotal .tot-net,
+#f-store:checked  ~ .costtotal .tot-store,
+#f-db:checked     ~ .costtotal .tot-db,
+#f-obs:checked    ~ .costtotal .tot-obs { display: inline; }
+
+.costtotal {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--rule-strong);
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+}
+
+/* ==========================================================
+   Expansor (details/summary) — "ver o que ha dentro"
+   ========================================================== */
+.expander { border-bottom: 1px solid var(--rule); }
+
+.expander__summary {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding: var(--sp-3) 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.expander__summary::-webkit-details-marker { display: none; }
+.expander__summary:hover { background: var(--surface); }
+
+.chev {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin: 0 var(--sp-1);
+  border-right: 1.5px solid var(--ink-faint);
+  border-bottom: 1.5px solid var(--ink-faint);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+}
+
+.expander[open] .chev { transform: rotate(45deg); }
+
+.expander__title { flex: 1; font-size: var(--size-xs); color: var(--ink); }
+.expander__sub {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--size-3xs);
+  color: var(--ink-faint);
+}
+
+.expander__value { font-size: var(--size-xs); white-space: nowrap; }
+
+.expander__body {
+  padding: var(--sp-2) 0 var(--sp-5) calc(var(--sp-4) + 6px);
+  border-left: 1px solid var(--rule);
+  margin-left: 3px;
+}
+
+/* Lista chave/valor dentro do expansor */
+.kv {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: var(--sp-2) var(--sp-4);
+  margin: 0;
+  font-size: var(--size-2xs);
+}
+
+.kv dt { color: var(--ink-faint); }
+.kv dd { margin: 0; color: var(--ink-muted); }
+
+.kv dd .num { color: var(--ink); }
+
+/* ==========================================================
+   Grafico de evolucao (SVG escrito a mao)
+   ========================================================== */
+.chart { width: 100%; height: auto; }
+.chart__grid { stroke: var(--rule); stroke-width: 1; }
+.chart__axis { stroke: var(--rule-strong); stroke-width: 1; }
+.chart__bar { fill: var(--bar); }
+.chart__bar--lead { fill: var(--bar-lead); }
+.chart__label { font-family: var(--font-num); font-size: 10px; fill: var(--ink-faint); }
+
+.chart__legend {
+  display: flex;
+  gap: var(--sp-4);
+  margin-top: var(--sp-2);
+  font-size: var(--size-3xs);
+  color: var(--ink-faint);
+}
+
+.chart__key {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: var(--sp-1);
+  vertical-align: -1px;
+  background: var(--bar-lead);
+}
+
+.chart__key--forecast {
+  background: repeating-linear-gradient(45deg, var(--rule-ink) 0 2px, transparent 2px 4px);
+  border: 1px solid var(--rule-ink);
+}
+
+/* ==========================================================
+   Lista simples (alertas)
+   ========================================================== */
+.itemlist__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.itemlist__row:last-child { border-bottom: 0; }
+.itemlist__title { font-size: var(--size-xs); color: var(--ink); }
+
+.itemlist__meta {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--size-3xs);
+  color: var(--ink-faint);
+}

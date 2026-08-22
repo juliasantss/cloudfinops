@@ -1,0 +1,264 @@
+/* CloudFinOps — estilos das telas internas
+   (index, custos, anomalias, recomendacoes, orcamentos, governanca) */
+
+/* ==========================================================
+   Filtro generico — reutilizavel em qualquer tela.
+   Marcacao: .filterable > inputs (#s-all, #s-1..#s-4)
+             + .filterbar com labels
+             + .filterlist com <li class="fs-N">
+   ========================================================== */
+#s-1:checked ~ .filterlist > li:not(.fs-1),
+#s-2:checked ~ .filterlist > li:not(.fs-2),
+#s-3:checked ~ .filterlist > li:not(.fs-3),
+#s-4:checked ~ .filterlist > li:not(.fs-4),
+#s-1:checked ~ .filterlist > tbody > tr:not(.fs-1),
+#s-2:checked ~ .filterlist > tbody > tr:not(.fs-2),
+#s-3:checked ~ .filterlist > tbody > tr:not(.fs-3),
+#s-4:checked ~ .filterlist > tbody > tr:not(.fs-4) { display: none; }
+
+#s-all:checked ~ .filterbar .chip[for="s-all"],
+#s-1:checked   ~ .filterbar .chip[for="s-1"],
+#s-2:checked   ~ .filterbar .chip[for="s-2"],
+#s-3:checked   ~ .filterbar .chip[for="s-3"],
+#s-4:checked   ~ .filterbar .chip[for="s-4"] {
+  color: var(--bg);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+#s-all:checked ~ .filterbar .chip[for="s-all"] .chip__count,
+#s-1:checked   ~ .filterbar .chip[for="s-1"] .chip__count,
+#s-2:checked   ~ .filterbar .chip[for="s-2"] .chip__count,
+#s-3:checked   ~ .filterbar .chip[for="s-3"] .chip__count,
+#s-4:checked   ~ .filterbar .chip[for="s-4"] .chip__count { color: var(--bg); opacity: 0.6; }
+
+#s-all:focus-visible ~ .filterbar .chip[for="s-all"],
+#s-1:focus-visible   ~ .filterbar .chip[for="s-1"],
+#s-2:focus-visible   ~ .filterbar .chip[for="s-2"],
+#s-3:focus-visible   ~ .filterbar .chip[for="s-3"],
+#s-4:focus-visible   ~ .filterbar .chip[for="s-4"] {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* ==========================================================
+   Realce de linha nas tabelas
+   ========================================================== */
+.datatable tbody tr:hover th,
+.datatable tbody tr:hover td { background: var(--surface); }
+
+/* ==========================================================
+   index.html — indice de navegacao
+   ========================================================== */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: var(--sp-6);
+  align-items: start;
+  padding: var(--sp-7) 0 var(--sp-6);
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.hero__logo { width: 232px; max-width: 100%; height: auto; }
+
+.hero__pitch {
+  margin-top: var(--sp-4);
+  font-size: var(--size-md);
+  line-height: 1.6;
+  color: var(--ink-muted);
+  max-width: 54ch;
+}
+
+.hero__pitch strong { color: var(--ink); font-weight: 500; }
+
+.hero__facts { padding-top: var(--sp-2); }
+
+.hero__fact {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+}
+
+.hero__fact:last-child { border-bottom: 0; }
+.hero__fact b { font-weight: 400; color: var(--ink); }
+
+/* Grade de telas */
+.screens {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: var(--sp-5);
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+.screen {
+  display: block;
+  padding: var(--sp-5) var(--sp-4);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.screen:hover { background: var(--surface); text-decoration: none; }
+
+.screen:hover .screen__go { color: var(--brand); }
+
+.screen__file {
+  display: block;
+  font-family: var(--font-num);
+  font-size: var(--size-3xs);
+  color: var(--ink-faint);
+}
+
+.screen__name {
+  display: block;
+  margin: var(--sp-2) 0 var(--sp-2);
+  font-size: var(--size-md);
+  font-weight: 500;
+}
+
+.screen__desc {
+  display: block;
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+  line-height: 1.5;
+  min-height: 3em;
+}
+
+.screen__go {
+  display: block;
+  margin-top: var(--sp-3);
+  font-size: var(--size-2xs);
+  color: var(--ink-faint);
+}
+
+/* Aviso de protótipo */
+.notice {
+  margin-top: var(--sp-6);
+  padding: var(--sp-4);
+  border: 1px solid var(--rule-strong);
+  border-left: 3px solid var(--warn);
+  border-radius: 0;
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+.notice b { color: var(--ink); font-weight: 500; }
+
+/* ==========================================================
+   budgets.html — barra com marcador de projecao
+   ========================================================== */
+.budget { padding: var(--sp-5) 0; border-bottom: 1px solid var(--rule); }
+.budget:last-child { border-bottom: 0; }
+
+.budget__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.budget__name { font-size: var(--size-md); font-weight: 500; margin: 0; }
+
+.budget__scope {
+  margin-top: var(--sp-1);
+  font-size: var(--size-2xs);
+  color: var(--ink-faint);
+}
+
+.budget__figures {
+  text-align: right;
+  font-size: var(--size-xs);
+  color: var(--ink-faint);
+}
+
+.budget__figures .num { color: var(--ink); font-size: var(--size-sm); }
+
+.budget__status { display: block; margin-top: var(--sp-2); }
+
+/* Trilho: consumo solido + projecao hachurada + marcador do limite */
+.budget__track {
+  position: relative;
+  height: 12px;
+  margin-top: var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}
+
+.budget__used {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--bar-lead);
+}
+
+.budget__used--warn { background: var(--warn); }
+.budget__used--alert { background: var(--alert); }
+
+.budget__forecast {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(45deg, var(--rule-ink) 0 2px, transparent 2px 5px);
+}
+
+.budget__limit {
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  width: 1px;
+  background: var(--ink);
+}
+
+/* Escala: extremos nas pontas, rotulo do limite alinhado ao marcador */
+.budget__scale {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--sp-3);
+  font-size: var(--size-3xs);
+  color: var(--ink-faint);
+}
+
+.budget__scale b { font-weight: 400; color: var(--ink-muted); }
+
+.budget__mark {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  color: var(--ink-muted);
+}
+
+/* ==========================================================
+   governance.html — taxonomia das tags obrigatorias
+   ========================================================== */
+.taxonomy { padding-top: var(--sp-5); }
+
+.taxonomy__code {
+  font-family: var(--font-num);
+  font-size: var(--size-2xs);
+  color: var(--brand);
+}
+
+/* ==========================================================
+   Responsivo das telas internas
+   ========================================================== */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1fr); padding-top: var(--sp-6); }
+  .screens { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .screens { grid-template-columns: minmax(0, 1fr); }
+  .screen__desc { min-height: 0; }
+  .budget__figures { text-align: left; font-size: var(--size-2xs); }
+  .budget__mark { display: none; }
+}

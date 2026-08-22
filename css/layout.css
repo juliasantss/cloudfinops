@@ -1,0 +1,132 @@
+/* CloudFinOps — layout: container, topo, navegacao, secoes, rodape */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+}
+
+/* --- Barra superior --- */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  min-height: 56px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--ink);
+  font-size: var(--size-md);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.brand:hover { text-decoration: none; }
+
+.brand__mark {
+  width: 24px;
+  height: 24px;
+  flex: none;
+}
+
+.brand__fin { color: var(--brand); }
+
+.topbar__meta {
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+}
+
+/* --- Navegacao principal --- */
+.mainnav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+}
+
+.mainnav__list {
+  display: flex;
+  gap: var(--sp-5);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.mainnav__list::-webkit-scrollbar { display: none; }
+
+.mainnav__link {
+  display: block;
+  padding: var(--sp-3) 0;
+  color: var(--ink-muted);
+  font-size: var(--size-xs);
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+
+.mainnav__link:hover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.mainnav__link[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--brand);
+}
+
+/* --- Corpo --- */
+.page { padding: var(--sp-6) 0 var(--sp-7); }
+
+.page__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.page__context {
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+}
+
+/* --- Secao --- */
+.section { padding-top: var(--sp-6); }
+
+.section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--rule);
+}
+
+.section__note {
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+}
+
+/* --- Rodape --- */
+.footer {
+  margin-top: var(--sp-7);
+  padding: var(--sp-5) 0;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-faint);
+  font-size: var(--size-2xs);
+}
+
+.footer__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custos — CloudFinOps</title>
+  <meta name="description" content="Análise detalhada de custos por serviço, ambiente, conta e região." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- #region topbar (bloco repetido em todas as telas) -->
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="index.html">
+        <svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 17.2h9.6a3.3 3.3 0 0 0 .3-6.58A5.3 5.3 0 0 0 7.3 8.9 3.65 3.65 0 0 0 7 17.2Z"
+                fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+          <rect x="9.4" y="10.5" width="1.9" height="5" rx="0.6" fill="#6e9bff" />
+          <rect x="12.2" y="12" width="1.9" height="3.5" rx="0.6" fill="#6e9bff" opacity="0.75" />
+          <rect x="15" y="13.5" width="1.9" height="2" rx="0.6" fill="#6e9bff" opacity="0.5" />
+        </svg>
+        Cloud<span class="brand__fin">FinOps</span>
+      </a>
+      <p class="topbar__meta">3 contas AWS · us-east-1, sa-east-1</p>
+    </div>
+  </header>
+
+  <nav class="mainnav" aria-label="Navegação principal">
+    <div class="container">
+      <ul class="mainnav__list">
+        <li><a class="mainnav__link" href="dashboard.html">Dashboard</a></li>
+        <li><a class="mainnav__link" href="costs.html" aria-current="page">Custos</a></li>
+        <li><a class="mainnav__link" href="anomalies.html">Anomalias</a></li>
+        <li><a class="mainnav__link" href="recommendations.html">Recomendações</a></li>
+        <li><a class="mainnav__link" href="budgets.html">Orçamentos</a></li>
+        <li><a class="mainnav__link" href="governance.html">Governança</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- #endregion topbar -->
+
+  <main id="conteudo" class="page">
+    <div class="container">
+      <div class="page__head">
+        <h1>Análise de custos</h1>
+        <p class="page__context">Julho de 2026 · mês fechado · comparação com junho · valores em US$</p>
+      </div>
+
+      <section aria-labelledby="resumo-titulo">
+        <h2 id="resumo-titulo" class="sr-only">Resumo do período</h2>
+        <div class="kpistrip">
+          <article class="kpi">
+            <span class="kpi__label" id="c1">Custo total de julho</span>
+            <span class="kpi__value num" aria-labelledby="c1">8.420<span class="kpi__cents">,00</span></span>
+            <span class="kpi__meta kpi__meta--warn">+<span class="num">9,7</span>% sobre junho</span>
+          </article>
+          <article class="kpi">
+            <span class="kpi__label" id="c2">Ambiente de produção</span>
+            <span class="kpi__value num" aria-labelledby="c2">5.910<span class="kpi__cents">,00</span></span>
+            <span class="kpi__meta"><span class="num">70,2</span>% do total</span>
+          </article>
+          <article class="kpi">
+            <span class="kpi__label" id="c3">Maior variação</span>
+            <span class="kpi__value num" aria-labelledby="c3">+187<span class="kpi__unit">%</span></span>
+            <span class="kpi__meta kpi__meta--alert">NAT Gateway</span>
+          </article>
+          <article class="kpi">
+            <span class="kpi__label" id="c4">Serviços faturados</span>
+            <span class="kpi__value num" aria-labelledby="c4">9<span class="kpi__unit"> grupos</span></span>
+            <span class="kpi__meta"><span class="num">428</span> recursos ativos</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="tabela-titulo">
+        <div class="section__head">
+          <h2 id="tabela-titulo">Custo por serviço e ambiente</h2>
+          <p class="section__note">filtre por categoria abaixo</p>
+        </div>
+
+        <div class="filterable">
+          <input class="filter__input" type="radio" name="categoria" id="f-all" checked />
+          <input class="filter__input" type="radio" name="categoria" id="f-comp" />
+          <input class="filter__input" type="radio" name="categoria" id="f-net" />
+          <input class="filter__input" type="radio" name="categoria" id="f-store" />
+          <input class="filter__input" type="radio" name="categoria" id="f-db" />
+          <input class="filter__input" type="radio" name="categoria" id="f-obs" />
+
+          <div class="filterbar" role="group" aria-label="Filtrar serviços por categoria">
+            <label class="chip" for="f-all">Todos <span class="chip__count">9</span></label>
+            <label class="chip" for="f-comp">Computação <span class="chip__count">2</span></label>
+            <label class="chip" for="f-net">Rede <span class="chip__count">2</span></label>
+            <label class="chip" for="f-store">Armazenamento <span class="chip__count">2</span></label>
+            <label class="chip" for="f-db">Banco de dados <span class="chip__count">1</span></label>
+            <label class="chip" for="f-obs">Observabilidade <span class="chip__count">1</span></label>
+          </div>
+
+          <table class="datatable costlist">
+            <caption>Valores de julho de 2026 por ambiente. A coluna de variação compara com junho.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Serviço</th>
+                <th scope="col" class="is-numeric">prod</th>
+                <th scope="col" class="is-numeric">staging</th>
+                <th scope="col" class="is-numeric">dev</th>
+                <th scope="col" class="is-numeric">Total</th>
+                <th scope="col" class="is-numeric">Junho</th>
+                <th scope="col" class="is-numeric">Variação</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr class="cat-comp">
+              <th scope="row">Amazon EC2<span class="datatable__sub">Computação · <span class="num">118</span> recursos</span></th>
+              <td class="is-numeric num">2.640,00</td>
+              <td class="is-numeric num">780,00</td>
+              <td class="is-numeric num">400,00</td>
+              <td class="is-numeric num">3.820,00</td>
+              <td class="is-numeric num">3.670,00</td>
+              <td class="is-numeric num delta--up">+4,1%</td>
+            </tr>
+            <tr class="cat-db">
+              <th scope="row">Amazon RDS<span class="datatable__sub">Banco de dados · <span class="num">9</span> recursos</span></th>
+              <td class="is-numeric num">1.290,00</td>
+              <td class="is-numeric num">340,00</td>
+              <td class="is-numeric num">100,00</td>
+              <td class="is-numeric num">1.730,00</td>
+              <td class="is-numeric num">1.691,00</td>
+              <td class="is-numeric num delta--up">+2,3%</td>
+            </tr>
+            <tr class="cat-net">
+              <th scope="row">NAT Gateway<span class="datatable__sub">Rede · <span class="num">3</span> recursos</span></th>
+              <td class="is-numeric num">680,00</td>
+              <td class="is-numeric num">210,00</td>
+              <td class="is-numeric num">130,00</td>
+              <td class="is-numeric num">1.020,00</td>
+              <td class="is-numeric num">355,00</td>
+              <td class="is-numeric num delta--alert">+187,0%</td>
+            </tr>
+            <tr class="cat-store">
+              <th scope="row">Amazon S3<span class="datatable__sub">Armazenamento · <span class="num">24</span> recursos</span></th>
+              <td class="is-numeric num">470,00</td>
+              <td class="is-numeric num">110,00</td>
+              <td class="is-numeric num">60,00</td>
+              <td class="is-numeric num">640,00</td>
+              <td class="is-numeric num">590,00</td>
+              <td class="is-numeric num delta--up">+8,4%</td>
+            </tr>
+            <tr class="cat-obs">
+              <th scope="row">Amazon CloudWatch<span class="datatable__sub">Observabilidade · <span class="num">62</span> recursos</span></th>
+              <td class="is-numeric num">300,00</td>
+              <td class="is-numeric num">80,00</td>
+              <td class="is-numeric num">50,00</td>
+              <td class="is-numeric num">430,00</td>
+              <td class="is-numeric num">382,00</td>
+              <td class="is-numeric num delta--up">+12,7%</td>
+            </tr>
+            <tr class="cat-store">
+              <th scope="row">Amazon EBS<span class="datatable__sub">Armazenamento · <span class="num">74</span> recursos</span></th>
+              <td class="is-numeric num">190,00</td>
+              <td class="is-numeric num">70,00</td>
+              <td class="is-numeric num">50,00</td>
+              <td class="is-numeric num">310,00</td>
+              <td class="is-numeric num">306,00</td>
+              <td class="is-numeric num delta--up">+1,2%</td>
+            </tr>
+            <tr class="cat-net">
+              <th scope="row">Data Transfer<span class="datatable__sub">Rede · <span class="num">—</span> recursos</span></th>
+              <td class="is-numeric num">180,00</td>
+              <td class="is-numeric num">40,00</td>
+              <td class="is-numeric num">20,00</td>
+              <td class="is-numeric num">240,00</td>
+              <td class="is-numeric num">183,00</td>
+              <td class="is-numeric num delta--alert">+31,5%</td>
+            </tr>
+            <tr class="cat-comp">
+              <th scope="row">AWS Lambda<span class="datatable__sub">Computação · <span class="num">41</span> recursos</span></th>
+              <td class="is-numeric num">90,00</td>
+              <td class="is-numeric num">25,00</td>
+              <td class="is-numeric num">15,00</td>
+              <td class="is-numeric num">130,00</td>
+              <td class="is-numeric num">134,00</td>
+              <td class="is-numeric num delta--gain">−3,0%</td>
+            </tr>
+            <tr class="cat-outros">
+              <th scope="row">Outros serviços<span class="datatable__sub">Diversos · <span class="num">97</span> recursos</span></th>
+              <td class="is-numeric num">70,00</td>
+              <td class="is-numeric num">20,00</td>
+              <td class="is-numeric num">10,00</td>
+              <td class="is-numeric num">100,00</td>
+              <td class="is-numeric num">99,00</td>
+              <td class="is-numeric num delta--up">+0,5%</td>
+            </tr>
+            </tbody>
+          </table>
+
+          <p class="costtotal">
+            <span class="tot-all">Total exibido: todos os serviços · <span class="num">9</span> itens</span>
+            <span class="tot-comp">Total exibido: computação · <span class="num">2</span> itens</span>
+            <span class="tot-net">Total exibido: rede · <span class="num">2</span> itens</span>
+            <span class="tot-store">Total exibido: armazenamento · <span class="num">2</span> itens</span>
+            <span class="tot-db">Total exibido: banco de dados · <span class="num">1</span> item</span>
+            <span class="tot-obs">Total exibido: observabilidade · <span class="num">1</span> item</span>
+            <span class="costtotal__value">
+              <span class="tot-all num">US$ 8.420,00</span>
+              <span class="tot-comp num">US$ 3.950,00</span>
+              <span class="tot-net num">US$ 1.260,00</span>
+              <span class="tot-store num">US$ 950,00</span>
+              <span class="tot-db num">US$ 1.730,00</span>
+              <span class="tot-obs num">US$ 430,00</span>
+            </span>
+          </p>
+        </div>
+      </section>
+
+      <div class="split">
+        <section aria-labelledby="conta-titulo">
+          <div class="section__head">
+            <h2 id="conta-titulo">Custo por conta</h2>
+            <p class="section__note">AWS Organizations</p>
+          </div>
+          <table class="datatable">
+            <caption>Distribuição do custo de julho entre as três contas do ambiente.</caption>
+            <thead>
+              <tr><th scope="col">Conta</th><th scope="col" class="is-numeric">Custo</th><th scope="col" class="is-numeric">Participação</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">producao<span class="datatable__sub num">111122223333</span></th><td class="is-numeric num">5.810,00</td><td class="is-numeric num">69,0%</td></tr>
+              <tr><th scope="row">homologacao<span class="datatable__sub num">444455556666</span></th><td class="is-numeric num">1.740,00</td><td class="is-numeric num">20,7%</td></tr>
+              <tr><th scope="row">dados<span class="datatable__sub num">777788889999</span></th><td class="is-numeric num">870,00</td><td class="is-numeric num">10,3%</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section aria-labelledby="regiao-titulo">
+          <div class="section__head">
+            <h2 id="regiao-titulo">Custo por região</h2>
+            <p class="section__note">duas regiões ativas</p>
+          </div>
+          <table class="datatable">
+            <caption>A operação em sa-east-1 concentra a réplica de leitura e o NAT Gateway com desvio.</caption>
+            <thead>
+              <tr><th scope="col">Região</th><th scope="col" class="is-numeric">Custo</th><th scope="col" class="is-numeric">Participação</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">us-east-1<span class="datatable__sub">Norte da Virgínia</span></th><td class="is-numeric num">6.190,00</td><td class="is-numeric num">73,5%</td></tr>
+              <tr><th scope="row">sa-east-1<span class="datatable__sub">São Paulo</span></th><td class="is-numeric num">2.230,00</td><td class="is-numeric num">26,5%</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- #region footer (bloco repetido em todas as telas) -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>CloudFinOps · Projeto acadêmico · IFPB · Desenvolvimento Web 2026.2</p>
+      <p>Dados fictícios para fins de demonstração. Valores em US$.</p>
+    </div>
+  </footer>
+  <!-- #endregion footer -->
+</body>
+</html>

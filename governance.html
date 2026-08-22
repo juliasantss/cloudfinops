@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Governança — CloudFinOps</title>
+  <meta name="description" content="Inventário de recursos, taxonomia de tags obrigatórias e custo não atribuível." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- #region topbar (bloco repetido em todas as telas) -->
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="index.html">
+        <svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 17.2h9.6a3.3 3.3 0 0 0 .3-6.58A5.3 5.3 0 0 0 7.3 8.9 3.65 3.65 0 0 0 7 17.2Z"
+                fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+          <rect x="9.4" y="10.5" width="1.9" height="5" rx="0.6" fill="#6e9bff" />
+          <rect x="12.2" y="12" width="1.9" height="3.5" rx="0.6" fill="#6e9bff" opacity="0.75" />
+          <rect x="15" y="13.5" width="1.9" height="2" rx="0.6" fill="#6e9bff" opacity="0.5" />
+        </svg>
+        Cloud<span class="brand__fin">FinOps</span>
+      </a>
+      <p class="topbar__meta">3 contas AWS · us-east-1, sa-east-1</p>
+    </div>
+  </header>
+
+  <nav class="mainnav" aria-label="Navegação principal">
+    <div class="container">
+      <ul class="mainnav__list">
+        <li><a class="mainnav__link" href="dashboard.html">Dashboard</a></li>
+        <li><a class="mainnav__link" href="costs.html">Custos</a></li>
+        <li><a class="mainnav__link" href="anomalies.html">Anomalias</a></li>
+        <li><a class="mainnav__link" href="recommendations.html">Recomendações</a></li>
+        <li><a class="mainnav__link" href="budgets.html">Orçamentos</a></li>
+        <li><a class="mainnav__link" href="governance.html" aria-current="page">Governança</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- #endregion topbar -->
+
+  <main id="conteudo" class="page">
+    <div class="container">
+      <div class="page__head">
+        <h1>Governança de tags</h1>
+        <p class="page__context">Base: julho de 2026 · <span class="num">428</span> recursos inventariados · valores em US$</p>
+      </div>
+
+      <section aria-labelledby="gov-resumo">
+        <h2 id="gov-resumo" class="sr-only">Resumo da conformidade</h2>
+        <div class="kpistrip">
+          <article class="kpi">
+            <span class="kpi__label" id="g1">Conformidade geral</span>
+            <span class="kpi__value num" aria-labelledby="g1">63,3<span class="kpi__unit">%</span></span>
+            <span class="kpi__meta"><span class="num">271</span> de <span class="num">428</span> recursos com as três tags</span>
+          </article>
+          <article class="kpi">
+            <span class="kpi__label" id="g2">Custo sem responsável</span>
+            <span class="kpi__value num" aria-labelledby="g2" style="color: var(--alert)">1.180<span class="kpi__cents">,00</span></span>
+            <span class="kpi__meta kpi__meta--alert"><span class="num">14,0</span>% do gasto de julho</span>
+          </article>
+          <article class="kpi">
+            <span class="kpi__label" id="g3">Recursos irregulares</span>
+            <span class="kpi__value num" aria-labelledby="g3">157</span>
+            <span class="kpi__meta">falta ao menos uma tag obrigatória</span>
+          </article>
+          <article class="kpi">
+            <span class="kpi__label" id="g4">Pilar de governança</span>
+            <span class="kpi__value num" aria-labelledby="g4">63<span class="kpi__unit">/100</span></span>
+            <span class="meter"><span class="meter__fill meter__fill--warn" style="width: 63%"></span></span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="tax-titulo">
+        <div class="section__head">
+          <h2 id="tax-titulo">Taxonomia das tags obrigatórias</h2>
+          <p class="section__note">três chaves, valores controlados</p>
+        </div>
+
+        <div class="taxonomy">
+          <table class="datatable">
+            <caption>
+              Manter poucas chaves com valores fechados é o que torna a conformidade verificável.
+              Uma taxonomia longa e livre gera inconsistência: <span class="taxonomy__code">time-redes</span>,
+              <span class="taxonomy__code">redes</span> e <span class="taxonomy__code">Redes</span> viram três donos diferentes.
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Chave</th>
+                <th scope="col">Finalidade</th>
+                <th scope="col">Valores aceitos</th>
+                <th scope="col" class="is-numeric">Conformidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"><span class="tagkey">OwnerTeam</span><span class="datatable__sub">atribuição de custo</span></th>
+                <td>Identifica a equipe responsável pelo recurso e pelo gasto que ele gera.</td>
+                <td>
+                  <span class="tagpair">plataforma</span> <span class="tagpair">redes</span>
+                  <span class="tagpair">backend</span> <span class="tagpair">dados</span>
+                </td>
+                <td class="is-numeric num">84,3%</td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="tagkey">Environment</span><span class="datatable__sub">segregação de ambiente</span></th>
+                <td>Separa produção de ambientes descartáveis, base para orçamento e para políticas de desligamento.</td>
+                <td>
+                  <span class="tagpair">prod</span> <span class="tagpair">staging</span> <span class="tagpair">dev</span>
+                </td>
+                <td class="is-numeric num">94,2%</td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="tagkey">ManagedBy</span><span class="datatable__sub">origem do provisionamento</span></th>
+                <td>Indica se o recurso nasceu de infraestrutura como código ou de criação manual no console.</td>
+                <td>
+                  <span class="tagpair">terraform</span> <span class="tagpair">cloudformation</span>
+                  <span class="tagpair">serverless</span> <span class="tagpair">manual</span>
+                </td>
+                <td class="is-numeric num">69,2%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="notice">
+          <b>Por que ManagedBy tem a pior conformidade.</b> Recursos criados por Terraform recebem tags
+          automaticamente pela configuração do provider. Os <span class="num">132</span> recursos sem essa chave
+          são, em sua maioria, criações manuais feitas pelo console — que é justamente a origem mais comum de
+          custo esquecido. A tag não mede burocracia: mede quanto da infraestrutura escapou do processo.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="conf-titulo">
+        <div class="section__head">
+          <h2 id="conf-titulo">Conformidade por chave</h2>
+          <p class="section__note">recursos e custo não coberto</p>
+        </div>
+
+        <div class="tagblock">
+          <div>
+            <div class="impact">
+              <span class="label" id="imp-label">Custo sem responsável</span>
+              <span class="impact__value num" aria-labelledby="imp-label">1.180<span class="kpi__cents">,00</span></span>
+              <span class="impact__note">
+                Recursos sem <span class="tagkey">OwnerTeam</span> não podem ser cobrados de nenhuma equipe.
+                Esse é o valor que ninguém revisa, ninguém questiona e ninguém desliga.
+              </span>
+            </div>
+
+            <div class="taglist">
+              <div class="taglist__item">
+                <div class="taglist__head"><span class="tagkey">OwnerTeam</span><span class="taglist__pct num">84,3%</span></div>
+                <span class="meter"><span class="meter__fill meter__fill--warn" style="width: 84.3%"></span></span>
+                <span class="taglist__meta"><span class="num">67</span> recursos sem a tag · <span class="num">US$ 1.180,00</span></span>
+              </div>
+              <div class="taglist__item">
+                <div class="taglist__head"><span class="tagkey">Environment</span><span class="taglist__pct num">94,2%</span></div>
+                <span class="meter"><span class="meter__fill meter__fill--gain" style="width: 94.2%"></span></span>
+                <span class="taglist__meta"><span class="num">25</span> recursos sem a tag · <span class="num">US$ 390,00</span></span>
+              </div>
+              <div class="taglist__item">
+                <div class="taglist__head"><span class="tagkey">ManagedBy</span><span class="taglist__pct num">69,2%</span></div>
+                <span class="meter"><span class="meter__fill meter__fill--alert" style="width: 69.2%"></span></span>
+                <span class="taglist__meta"><span class="num">132</span> recursos sem a tag · <span class="num">US$ 1.640,00</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filterable" style="padding-top: 0">
+            <input class="filter__input" type="radio" name="tagfaltante" id="s-all" checked />
+            <input class="filter__input" type="radio" name="tagfaltante" id="s-1" />
+            <input class="filter__input" type="radio" name="tagfaltante" id="s-2" />
+            <input class="filter__input" type="radio" name="tagfaltante" id="s-3" />
+            <div class="filterbar" role="group" aria-label="Filtrar recursos por tag ausente">
+              <label class="chip" for="s-all">Todos <span class="chip__count">10</span></label>
+              <label class="chip" for="s-1">Sem OwnerTeam <span class="chip__count">6</span></label>
+              <label class="chip" for="s-2">Sem Environment <span class="chip__count">3</span></label>
+              <label class="chip" for="s-3">Sem ManagedBy <span class="chip__count">7</span></label>
+            </div>
+            <table class="datatable filterlist">
+              <caption>
+                Dez recursos de maior custo entre os <span class="num">157</span> fora de conformidade.
+                A ordenação por custo transforma a auditoria em fila de trabalho.
+              </caption>
+              <thead>
+                <tr><th scope="col">Recurso</th><th scope="col">Tags ausentes</th><th scope="col" class="is-numeric">Custo/mês</th></tr>
+              </thead>
+              <tbody>
+            <tr class="fs-1 fs-3">
+              <th scope="row"><span class="num">i-0a3f7c1e</span><span class="datatable__sub">EC2 t3.large · us-east-1 · prod</span></th>
+              <td><span class="tag tag--alert tagkey">OwnerTeam</span> <span class="tag tag--alert tagkey">ManagedBy</span></td>
+              <td class="is-numeric num">412,00</td>
+            </tr>
+            <tr class="fs-3">
+              <th scope="row"><span class="num">nat-0d914b22</span><span class="datatable__sub">NAT Gateway · sa-east-1 · prod</span></th>
+              <td><span class="tag tag--alert tagkey">ManagedBy</span></td>
+              <td class="is-numeric num">340,00</td>
+            </tr>
+            <tr class="fs-1">
+              <th scope="row"><span class="num">db-analytics-01</span><span class="datatable__sub">RDS db.t3.medium · us-east-1 · prod</span></th>
+              <td><span class="tag tag--alert tagkey">OwnerTeam</span></td>
+              <td class="is-numeric num">288,00</td>
+            </tr>
+            <tr class="fs-3">
+              <th scope="row"><span class="num">i-0f81b2d4</span><span class="datatable__sub">EC2 m5.xlarge · us-east-1 · staging</span></th>
+              <td><span class="tag tag--alert tagkey">ManagedBy</span></td>
+              <td class="is-numeric num">196,00</td>
+            </tr>
+            <tr class="fs-1 fs-3">
+              <th scope="row"><span class="num">log-group-app-prod</span><span class="datatable__sub">CloudWatch Logs · us-east-1 · prod</span></th>
+              <td><span class="tag tag--alert tagkey">OwnerTeam</span> <span class="tag tag--alert tagkey">ManagedBy</span></td>
+              <td class="is-numeric num">118,00</td>
+            </tr>
+            <tr class="fs-2">
+              <th scope="row"><span class="num">i-0c55e9a7</span><span class="datatable__sub">EC2 t3.medium · sa-east-1 · dev</span></th>
+              <td><span class="tag tag--alert tagkey">Environment</span></td>
+              <td class="is-numeric num">94,00</td>
+            </tr>
+            <tr class="fs-1 fs-2 fs-3">
+              <th scope="row"><span class="num">vol-07c2ae55</span><span class="datatable__sub">EBS gp3 500 GB · sem anexo</span></th>
+              <td><span class="tag tag--alert tagkey">OwnerTeam</span> <span class="tag tag--alert tagkey">Environment</span> <span class="tag tag--alert tagkey">ManagedBy</span></td>
+              <td class="is-numeric num">64,00</td>
+            </tr>
+            <tr class="fs-3">
+              <th scope="row"><span class="num">bucket-backup-legacy</span><span class="datatable__sub">S3 Standard · us-east-1</span></th>
+              <td><span class="tag tag--alert tagkey">ManagedBy</span></td>
+              <td class="is-numeric num">48,00</td>
+            </tr>
+            <tr class="fs-1 fs-2">
+              <th scope="row"><span class="num">snap-91ac03de</span><span class="datatable__sub">EBS Snapshot · 214 dias</span></th>
+              <td><span class="tag tag--alert tagkey">OwnerTeam</span> <span class="tag tag--alert tagkey">Environment</span></td>
+              <td class="is-numeric num">22,00</td>
+            </tr>
+            <tr class="fs-1 fs-3">
+              <th scope="row"><span class="num">eipalloc-3b8f01</span><span class="datatable__sub">Elastic IP · não associado</span></th>
+              <td><span class="tag tag--alert tagkey">OwnerTeam</span> <span class="tag tag--alert tagkey">ManagedBy</span></td>
+              <td class="is-numeric num">12,00</td>
+            </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- #region footer (bloco repetido em todas as telas) -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>CloudFinOps · Projeto acadêmico · IFPB · Desenvolvimento Web 2026.2</p>
+      <p>Dados fictícios para fins de demonstração. Valores em US$.</p>
+    </div>
+  </footer>
+  <!-- #endregion footer -->
+</body>
+</html>

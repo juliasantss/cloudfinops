@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orçamentos — CloudFinOps</title>
+  <meta name="description" content="Acompanhamento de orçamento por escopo com projeção de fechamento e alertas." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- #region topbar (bloco repetido em todas as telas) -->
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="index.html">
+        <svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 17.2h9.6a3.3 3.3 0 0 0 .3-6.58A5.3 5.3 0 0 0 7.3 8.9 3.65 3.65 0 0 0 7 17.2Z"
+                fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+          <rect x="9.4" y="10.5" width="1.9" height="5" rx="0.6" fill="#6e9bff" />
+          <rect x="12.2" y="12" width="1.9" height="3.5" rx="0.6" fill="#6e9bff" opacity="0.75" />
+          <rect x="15" y="13.5" width="1.9" height="2" rx="0.6" fill="#6e9bff" opacity="0.5" />
+        </svg>
+        Cloud<span class="brand__fin">FinOps</span>
+      </a>
+      <p class="topbar__meta">3 contas AWS · us-east-1, sa-east-1</p>
+    </div>
+  </header>
+
+  <nav class="mainnav" aria-label="Navegação principal">
+    <div class="container">
+      <ul class="mainnav__list">
+        <li><a class="mainnav__link" href="dashboard.html">Dashboard</a></li>
+        <li><a class="mainnav__link" href="costs.html">Custos</a></li>
+        <li><a class="mainnav__link" href="anomalies.html">Anomalias</a></li>
+        <li><a class="mainnav__link" href="recommendations.html">Recomendações</a></li>
+        <li><a class="mainnav__link" href="budgets.html" aria-current="page">Orçamentos</a></li>
+        <li><a class="mainnav__link" href="governance.html">Governança</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- #endregion topbar -->
+
+  <main id="conteudo" class="page">
+    <div class="container">
+      <div class="page__head">
+        <h1>Orçamentos</h1>
+        <p class="page__context">Agosto de 2026 · dia <span class="num">22</span> de <span class="num">31</span> · valores em US$</p>
+      </div>
+
+      <section aria-labelledby="bud-resumo">
+        <h2 id="bud-resumo" class="sr-only">Resumo dos orçamentos</h2>
+        <div class="kpistrip">
+          <article class="kpi">
+            <span class="kpi__label" id="b1">Orçamento total</span>
+            <span class="kpi__value num" aria-labelledby="b1">9.400<span class="kpi__cents">,00</span></span>
+            <span class="kpi__meta"><span class="num">4</span> escopos definidos</span>
+          </article>
+          <article class="kpi">
+            <span class="kpi__label" id="b2">Consumido até hoje</span>
+            <span class="kpi__value num" aria-labelledby="b2">6.510<span class="kpi__cents">,00</span></span>
+            <span class="kpi__meta"><span class="num">69,3</span>% do orçamento</span>
+          </article>
+          <article class="kpi">
+            <span class="kpi__label" id="b3">Projeção de fechamento</span>
+            <span class="kpi__value num" aria-labelledby="b3">9.180<span class="kpi__cents">,00</span></span>
+            <span class="kpi__meta"><span class="num">97,7</span>% do orçamento total</span>
+          </article>
+          <article class="kpi">
+            <span class="kpi__label" id="b4">Escopos com estouro previsto</span>
+            <span class="kpi__value num" aria-labelledby="b4">2</span>
+            <span class="kpi__meta kpi__meta--alert">produção e homologação</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="bud-lista">
+        <div class="section__head">
+          <h2 id="bud-lista">Acompanhamento por escopo</h2>
+          <p class="section__note">sólido: consumido · hachurado: projetado · traço: limite</p>
+        </div>
+        <ul>
+        <li class="budget">
+          <div class="budget__head">
+            <div>
+              <h3 class="budget__name">Produção</h3>
+              <p class="budget__scope">conta 111122223333 · todos os serviços</p>
+            </div>
+            <p class="budget__figures">
+              <span class="num">4.680,00</span> de <span class="num">6.500,00</span>
+              <span class="budget__status">
+                projeção <span class="num">6.600,00</span> · <span style="color: var(--alert)">US$ 100,00 acima do limite</span>
+                <span class="tag tag--alert">Estouro previsto</span>
+              </span>
+            </p>
+          </div>
+
+          <div class="budget__track" role="img" aria-label="Produção: consumido 72,0 por cento do orçamento; projeção de fechamento em 101,5 por cento">
+            <span class="budget__used budget__used--alert" style="width: 55.4%"></span>
+            <span class="budget__forecast" style="left: 55.4%; width: 22.7%"></span>
+            <span class="budget__limit" style="left: 76.9%"></span>
+          </div>
+
+          <p class="budget__scale">
+            <span>consumido <b class="num">72,0%</b></span>
+            <span class="budget__mark" style="left: 76.9%">limite do orçamento</span>
+            <span>projetado <b class="num">101,5%</b></span>
+          </p>
+        </li>
+        <li class="budget">
+          <div class="budget__head">
+            <div>
+              <h3 class="budget__name">Homologação</h3>
+              <p class="budget__scope">Environment=staging · todas as contas</p>
+            </div>
+            <p class="budget__figures">
+              <span class="num">1.092,00</span> de <span class="num">1.200,00</span>
+              <span class="budget__status">
+                projeção <span class="num">1.540,00</span> · <span style="color: var(--alert)">US$ 340,00 acima do limite</span>
+                <span class="tag tag--alert">Estouro previsto</span>
+              </span>
+            </p>
+          </div>
+
+          <div class="budget__track" role="img" aria-label="Homologação: consumido 91,0 por cento do orçamento; projeção de fechamento em 128,3 por cento">
+            <span class="budget__used budget__used--alert" style="width: 70.0%"></span>
+            <span class="budget__forecast" style="left: 70.0%; width: 28.7%"></span>
+            <span class="budget__limit" style="left: 76.9%"></span>
+          </div>
+
+          <p class="budget__scale">
+            <span>consumido <b class="num">91,0%</b></span>
+            <span class="budget__mark" style="left: 76.9%">limite do orçamento</span>
+            <span>projetado <b class="num">128,3%</b></span>
+          </p>
+        </li>
+        <li class="budget">
+          <div class="budget__head">
+            <div>
+              <h3 class="budget__name">Desenvolvimento</h3>
+              <p class="budget__scope">Environment=dev · todas as contas</p>
+            </div>
+            <p class="budget__figures">
+              <span class="num">402,00</span> de <span class="num">800,00</span>
+              <span class="budget__status">
+                projeção <span class="num">570,00</span> · <span style="color: var(--gain)">US$ 230,00 disponíveis</span>
+                <span class="tag tag--gain">Dentro do limite</span>
+              </span>
+            </p>
+          </div>
+
+          <div class="budget__track" role="img" aria-label="Desenvolvimento: consumido 50,2 por cento do orçamento; projeção de fechamento em 71,2 por cento">
+            <span class="budget__used" style="width: 38.7%"></span>
+            <span class="budget__forecast" style="left: 38.7%; width: 16.2%"></span>
+            <span class="budget__limit" style="left: 76.9%"></span>
+          </div>
+
+          <p class="budget__scale">
+            <span>consumido <b class="num">50,2%</b></span>
+            <span class="budget__mark" style="left: 76.9%">limite do orçamento</span>
+            <span>projetado <b class="num">71,2%</b></span>
+          </p>
+        </li>
+        <li class="budget">
+          <div class="budget__head">
+            <div>
+              <h3 class="budget__name">Dados e analytics</h3>
+              <p class="budget__scope">conta 777788889999 · Project=analytics</p>
+            </div>
+            <p class="budget__figures">
+              <span class="num">336,00</span> de <span class="num">900,00</span>
+              <span class="budget__status">
+                projeção <span class="num">470,00</span> · <span style="color: var(--gain)">US$ 430,00 disponíveis</span>
+                <span class="tag tag--gain">Dentro do limite</span>
+              </span>
+            </p>
+          </div>
+
+          <div class="budget__track" role="img" aria-label="Dados e analytics: consumido 37,3 por cento do orçamento; projeção de fechamento em 52,2 por cento">
+            <span class="budget__used" style="width: 28.7%"></span>
+            <span class="budget__forecast" style="left: 28.7%; width: 11.5%"></span>
+            <span class="budget__limit" style="left: 76.9%"></span>
+          </div>
+
+          <p class="budget__scale">
+            <span>consumido <b class="num">37,3%</b></span>
+            <span class="budget__mark" style="left: 76.9%">limite do orçamento</span>
+            <span>projetado <b class="num">52,2%</b></span>
+          </p>
+        </li>
+        </ul>
+      </section>
+
+      <section class="section" aria-labelledby="bud-alerta">
+        <div class="section__head">
+          <h2 id="bud-alerta">Alertas configurados</h2>
+          <p class="section__note">disparo por limiar de consumo ou de projeção</p>
+        </div>
+        <table class="datatable">
+          <caption>
+            Alertas de projeção disparam antes do estouro ocorrer, que é o único momento em que ainda
+            há tempo de agir. Alertas de consumo apenas confirmam o que já aconteceu.
+          </caption>
+          <thead>
+            <tr><th scope="col">Escopo</th><th scope="col">Tipo</th><th scope="col" class="is-numeric">Limiar</th><th scope="col">Situação</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Produção</th><td>Projeção de fechamento</td><td class="is-numeric num">100%</td><td><span class="tag tag--alert">Disparado em 19/08</span></td></tr>
+            <tr><th scope="row">Homologação</th><td>Consumo acumulado</td><td class="is-numeric num">90%</td><td><span class="tag tag--alert">Disparado em 14/08</span></td></tr>
+            <tr><th scope="row">Homologação</th><td>Projeção de fechamento</td><td class="is-numeric num">100%</td><td><span class="tag tag--alert">Disparado em 09/08</span></td></tr>
+            <tr><th scope="row">Desenvolvimento</th><td>Consumo acumulado</td><td class="is-numeric num">80%</td><td><span class="tag tag--gain">Não disparado</span></td></tr>
+            <tr><th scope="row">Dados e analytics</th><td>Consumo acumulado</td><td class="is-numeric num">80%</td><td><span class="tag tag--gain">Não disparado</span></td></tr>
+          </tbody>
+        </table>
+
+        <p class="notice">
+          <b>O total engana.</b> A projeção geral fecha em <span class="num">97,7%</span> do orçamento consolidado,
+          o que sugere folga. Mas dois escopos estouram e dois sobram: a folga de desenvolvimento e analytics está
+          compensando o excesso de produção e homologação. Acompanhar apenas o total esconde exatamente o
+          problema que o orçamento deveria revelar.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- #region footer (bloco repetido em todas as telas) -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>CloudFinOps · Projeto acadêmico · IFPB · Desenvolvimento Web 2026.2</p>
+      <p>Dados fictícios para fins de demonstração. Valores em US$.</p>
+    </div>
+  </footer>
+  <!-- #endregion footer -->
+</body>
+</html>
