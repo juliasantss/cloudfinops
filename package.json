@@ -1,0 +1,16 @@
+{
+  "name": "cloudfinops",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Plataforma Web de observabilidade financeira de infraestrutura em nuvem, sobre dados FOCUS 1.4.",
+  "type": "module",
+  "scripts": {
+    "api": "json-server --watch api/db.json --port 3000",
+    "web": "python3 -m http.server 5500",
+    "data": "python3 tools/build-dataset.py",
+    "check": "node tools/check-metrics.mjs"
+  },
+  "devDependencies": {
+    "json-server": "^0.17.4"
+  }
+}
