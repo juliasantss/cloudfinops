@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acesso — CloudFinOps</title>
+  <meta name="description" content="Acesso à plataforma CloudFinOps e seleção do perfil de visualização." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="login-body">
+  <main class="login">
+    <div class="login__panel">
+
+      <img class="login__logo" src="assets/logo.svg" alt="CloudFinOps" width="232" height="48" />
+
+      <p class="login__pitch">
+        Observabilidade financeira de infraestrutura em nuvem.
+        Dados no padrão aberto <span class="num">FOCUS 1.4</span>.
+      </p>
+
+      <form id="login-form" class="form" novalidate>
+        <div class="form__field">
+          <label class="form__label" for="login-email">E-mail corporativo</label>
+          <input class="form__input" type="email" id="login-email" name="email"
+                 autocomplete="username" placeholder="nome@empresa.com"
+                 aria-describedby="erro-email" />
+          <p class="form__error" id="erro-email" role="alert"></p>
+        </div>
+
+        <div class="form__field">
+          <label class="form__label" for="login-senha">Senha</label>
+          <input class="form__input" type="password" id="login-senha" name="senha"
+                 autocomplete="current-password" aria-describedby="erro-senha" />
+          <p class="form__error" id="erro-senha" role="alert"></p>
+        </div>
+
+        <fieldset class="form__field">
+          <legend class="form__label">Perfil de visualização</legend>
+          <div class="profile-options" id="login-perfis"></div>
+          <p class="form__hint" id="login-perfil-desc"></p>
+        </fieldset>
+
+        <button class="form__submit" type="submit" id="login-submit">Entrar</button>
+
+        <div id="login-erro"></div>
+      </form>
+
+      <div id="login-atalhos"></div>
+
+      <p class="login__notice">
+        <b>Ambiente de demonstração.</b> Esta tela seleciona um perfil de visualização
+        e não realiza autenticação: nenhuma senha é armazenada ou verificada nesta
+        etapa. Autenticação com hash de senha e token JWT depende de servidor e será
+        implementada na etapa de back-end.
+      </p>
+
+      <p class="login__skip">
+        <a href="dashboard.html">Entrar sem identificação</a>
+      </p>
+
+    </div>
+  </main>
+
+  <script type="module" src="js/pages/login.js"></script>
+</body>
+</html>

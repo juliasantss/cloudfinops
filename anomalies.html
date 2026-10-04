@@ -24,7 +24,7 @@
         </svg>
         Cloud<span class="brand__fin">FinOps</span>
       </a>
-      <p class="topbar__meta">3 contas AWS · us-east-1, sa-east-1</p>
+      <div class="session" id="session-controls"></div>
     </div>
   </header>
 
@@ -37,6 +37,7 @@
         <li><a class="mainnav__link" href="recommendations.html">Recomendações</a></li>
         <li><a class="mainnav__link" href="budgets.html">Orçamentos</a></li>
         <li><a class="mainnav__link" href="governance.html">Governança</a></li>
+          <li><a class="mainnav__link" href="calculator.html">Simulador</a></li>
       </ul>
     </div>
   </nav>
@@ -44,35 +45,15 @@
 
   <main id="conteudo" class="page">
     <div class="container">
+
       <div class="page__head">
         <h1>Detecção de anomalias</h1>
-        <p class="page__context">Agosto de 2026 · linha de base: média móvel de 14 dias · valores em US$</p>
+        <p class="page__context" id="anom-context"></p>
       </div>
 
-      <section aria-labelledby="an-resumo">
-        <h2 id="an-resumo" class="sr-only">Resumo das anomalias</h2>
-        <div class="kpistrip">
-          <article class="kpi">
-            <span class="kpi__label" id="a1">Anomalias no período</span>
-            <span class="kpi__value num" aria-labelledby="a1">6</span>
-            <span class="kpi__meta"><span class="num">3</span> ainda em aberto</span>
-          </article>
-          <article class="kpi">
-            <span class="kpi__label" id="a2">Impacto acumulado</span>
-            <span class="kpi__value num" aria-labelledby="a2">1.190<span class="kpi__cents">,00</span></span>
-            <span class="kpi__meta kpi__meta--alert">acima da linha de base</span>
-          </article>
-          <article class="kpi">
-            <span class="kpi__label" id="a3">Severidade crítica</span>
-            <span class="kpi__value num" aria-labelledby="a3">1</span>
-            <span class="kpi__meta kpi__meta--alert">NAT Gateway, desde 18/08</span>
-          </article>
-          <article class="kpi">
-            <span class="kpi__label" id="a4">Tempo médio de tratamento</span>
-            <span class="kpi__value num" aria-labelledby="a4">5<span class="kpi__unit"> dias</span></span>
-            <span class="kpi__meta">meta: até <span class="num">7</span> dias</span>
-          </article>
-        </div>
+      <section aria-labelledby="anom-resumo">
+        <h2 id="anom-resumo" class="sr-only">Resumo das anomalias</h2>
+        <div id="anom-kpis"></div>
       </section>
 
       <section class="section" aria-labelledby="criterio-titulo">
@@ -80,194 +61,17 @@
           <h2 id="criterio-titulo">Critério de classificação</h2>
           <p class="section__note">desvio percentual combinado com impacto absoluto</p>
         </div>
-        <table class="datatable">
-          <caption>
-            Exigir os dois limiares evita que variações irrelevantes em valor absoluto sejam
-            classificadas como críticas apenas por terem percentual alto.
-          </caption>
-          <thead>
-            <tr><th scope="col">Severidade</th><th scope="col" class="is-numeric">Desvio</th><th scope="col" class="is-numeric">Impacto projetado</th><th scope="col">Prazo de resposta</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row"><span class="tag tag--alert">Crítica</span></th><td class="is-numeric num">≥ 100%</td><td class="is-numeric num">≥ US$ 200/mês</td><td>24 horas</td></tr>
-            <tr><th scope="row"><span class="tag tag--warn">Alta</span></th><td class="is-numeric num">≥ 50%</td><td class="is-numeric num">≥ US$ 80/mês</td><td>3 dias</td></tr>
-            <tr><th scope="row"><span class="tag tag--warn">Média</span></th><td class="is-numeric num">≥ 30%</td><td class="is-numeric num">≥ US$ 30/mês</td><td>7 dias</td></tr>
-            <tr><th scope="row"><span class="tag">Baixa</span></th><td class="is-numeric num">≥ 20%</td><td class="is-numeric num">qualquer valor</td><td>sem prazo</td></tr>
-          </tbody>
-        </table>
+        <div id="anom-criteria"></div>
       </section>
 
       <section class="section" aria-labelledby="lista-titulo">
         <div class="section__head">
           <h2 id="lista-titulo">Anomalias detectadas</h2>
-          <p class="section__note">clique para ver linha de base e causa provável</p>
+          <p class="section__note">a situação de cada item é salva na API</p>
         </div>
-
         <div class="filterable">
-          <input class="filter__input" type="radio" name="severidade" id="s-all" checked />
-          <input class="filter__input" type="radio" name="severidade" id="s-1" />
-          <input class="filter__input" type="radio" name="severidade" id="s-2" />
-          <input class="filter__input" type="radio" name="severidade" id="s-3" />
-          <input class="filter__input" type="radio" name="severidade" id="s-4" />
-          <div class="filterbar" role="group" aria-label="Filtrar anomalias por severidade">
-            <label class="chip" for="s-all">Todas <span class="chip__count">6</span></label>
-            <label class="chip" for="s-1">Crítica <span class="chip__count">1</span></label>
-            <label class="chip" for="s-2">Alta <span class="chip__count">2</span></label>
-            <label class="chip" for="s-3">Média <span class="chip__count">2</span></label>
-            <label class="chip" for="s-4">Baixa <span class="chip__count">1</span></label>
-          </div>
-          <ul class="filterlist">
-          <li class="fs-1">
-            <details class="expander">
-              <summary class="expander__summary">
-                <i class="chev" aria-hidden="true"></i>
-                <span class="expander__title">NAT Gateway
-                  <span class="expander__sub">nat-0d914b22 · sa-east-1 · detectado em 18/08</span>
-                </span>
-                <span class="expander__value num">+187,3%</span>
-                <span class="tag tag--alert">Crítica</span>
-                <span class="tag tag--alert">Aberta</span>
-              </summary>
-              <div class="expander__body">
-                <dl class="kv">
-                  <dt>Linha de base</dt>
-                  <dd>Média móvel de 14 dias: <span class="num">US$ 355,00</span></dd>
-                  <dt>Custo observado</dt>
-                  <dd><span class="num">US$ 1.020,00</span> no período equivalente</dd>
-                  <dt>Impacto financeiro</dt>
-                  <dd><span class="num">US$ 665,00</span> acima do esperado</dd>
-                  <dt>Causa provável</dt>
-                  <dd>Tráfego para S3 e DynamoDB roteado pelo NAT em vez de VPC Endpoints.</dd>
-                </dl>
-              </div>
-            </details>
-          </li>
-          <li class="fs-2">
-            <details class="expander">
-              <summary class="expander__summary">
-                <i class="chev" aria-hidden="true"></i>
-                <span class="expander__title">Amazon S3
-                  <span class="expander__sub">logs-app-prod · us-east-1 · detectado em 17/08</span>
-                </span>
-                <span class="expander__value num">+54,2%</span>
-                <span class="tag tag--warn">Alta</span>
-                <span class="tag tag--warn">Em análise</span>
-              </summary>
-              <div class="expander__body">
-                <dl class="kv">
-                  <dt>Linha de base</dt>
-                  <dd>Média móvel de 14 dias: <span class="num">US$ 96,00</span></dd>
-                  <dt>Custo observado</dt>
-                  <dd><span class="num">US$ 148,00</span> no período equivalente</dd>
-                  <dt>Impacto financeiro</dt>
-                  <dd><span class="num">US$ 52,00</span> acima do esperado</dd>
-                  <dt>Causa provável</dt>
-                  <dd>Aumento de requisições PUT após mudança no nível de log da aplicação.</dd>
-                </dl>
-              </div>
-            </details>
-          </li>
-          <li class="fs-3">
-            <details class="expander">
-              <summary class="expander__summary">
-                <i class="chev" aria-hidden="true"></i>
-                <span class="expander__title">Data Transfer
-                  <span class="expander__sub">réplica de leitura · entre regiões · detectado em 16/08</span>
-                </span>
-                <span class="expander__value num">+31,1%</span>
-                <span class="tag tag--warn">Média</span>
-                <span class="tag tag--alert">Aberta</span>
-              </summary>
-              <div class="expander__body">
-                <dl class="kv">
-                  <dt>Linha de base</dt>
-                  <dd>Média móvel de 14 dias: <span class="num">US$ 183,00</span></dd>
-                  <dt>Custo observado</dt>
-                  <dd><span class="num">US$ 240,00</span> no período equivalente</dd>
-                  <dt>Impacto financeiro</dt>
-                  <dd><span class="num">US$ 57,00</span> acima do esperado</dd>
-                  <dt>Causa provável</dt>
-                  <dd>Sincronização da réplica em sa-east-1 com a origem em us-east-1.</dd>
-                </dl>
-              </div>
-            </details>
-          </li>
-          <li class="fs-3">
-            <details class="expander">
-              <summary class="expander__summary">
-                <i class="chev" aria-hidden="true"></i>
-                <span class="expander__title">Amazon RDS
-                  <span class="expander__sub">db-analytics-01 · us-east-1 · detectado em 15/08</span>
-                </span>
-                <span class="expander__value num">+20,0%</span>
-                <span class="tag tag--warn">Média</span>
-                <span class="tag tag--warn">Em análise</span>
-              </summary>
-              <div class="expander__body">
-                <dl class="kv">
-                  <dt>Linha de base</dt>
-                  <dd>Média móvel de 14 dias: <span class="num">US$ 240,00</span></dd>
-                  <dt>Custo observado</dt>
-                  <dd><span class="num">US$ 288,00</span> no período equivalente</dd>
-                  <dt>Impacto financeiro</dt>
-                  <dd><span class="num">US$ 48,00</span> acima do esperado</dd>
-                  <dt>Causa provável</dt>
-                  <dd>Consultas analíticas migradas para a instância transacional.</dd>
-                </dl>
-              </div>
-            </details>
-          </li>
-          <li class="fs-4">
-            <details class="expander">
-              <summary class="expander__summary">
-                <i class="chev" aria-hidden="true"></i>
-                <span class="expander__title">Amazon CloudWatch
-                  <span class="expander__sub">9 grupos de log · us-east-1 · detectado em 11/08</span>
-                </span>
-                <span class="expander__value num">+12,6%</span>
-                <span class="tag ">Baixa</span>
-                <span class="tag tag--alert">Aberta</span>
-              </summary>
-              <div class="expander__body">
-                <dl class="kv">
-                  <dt>Linha de base</dt>
-                  <dd>Média móvel de 14 dias: <span class="num">US$ 382,00</span></dd>
-                  <dt>Custo observado</dt>
-                  <dd><span class="num">US$ 430,00</span> no período equivalente</dd>
-                  <dt>Impacto financeiro</dt>
-                  <dd><span class="num">US$ 48,00</span> acima do esperado</dd>
-                  <dt>Causa provável</dt>
-                  <dd>Grupos de log sem política de retenção acumulando volume.</dd>
-                </dl>
-              </div>
-            </details>
-          </li>
-          <li class="fs-2">
-            <details class="expander">
-              <summary class="expander__summary">
-                <i class="chev" aria-hidden="true"></i>
-                <span class="expander__title">Amazon EC2
-                  <span class="expander__sub">asg-web-prod · us-east-1 · detectado em 06/08</span>
-                </span>
-                <span class="expander__value num">+39,0%</span>
-                <span class="tag tag--warn">Alta</span>
-                <span class="tag tag--gain">Resolvida</span>
-              </summary>
-              <div class="expander__body">
-                <dl class="kv">
-                  <dt>Linha de base</dt>
-                  <dd>Média móvel de 14 dias: <span class="num">US$ 820,00</span></dd>
-                  <dt>Custo observado</dt>
-                  <dd><span class="num">US$ 1.140,00</span> no período equivalente</dd>
-                  <dt>Impacto financeiro</dt>
-                  <dd><span class="num">US$ 320,00</span> acima do esperado</dd>
-                  <dt>Causa provável</dt>
-                  <dd>Escalonamento durante campanha promocional, dentro do esperado.</dd>
-                </dl>
-              </div>
-            </details>
-          </li>
-          </ul>
+          <div id="anom-filters"></div>
+          <div id="anom-list"></div>
         </div>
       </section>
 
@@ -277,10 +81,11 @@
   <!-- #region footer (bloco repetido em todas as telas) -->
   <footer class="footer">
     <div class="container footer__inner">
-      <p>CloudFinOps · Projeto acadêmico · IFPB · Desenvolvimento Web 2026.2</p>
-      <p>Dados fictícios para fins de demonstração. Valores em US$.</p>
+      <p>CloudFinOps <span class="num">v0.2.0</span> · dados no padrão FOCUS <span class="num">1.4</span></p>
+      <p>Ambiente de demonstração · conjunto de amostra sintético</p>
     </div>
   </footer>
   <!-- #endregion footer -->
+  <script type="module" src="js/pages/anomalies.js"></script>
 </body>
 </html>

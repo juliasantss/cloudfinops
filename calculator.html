@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Recomendações — CloudFinOps</title>
-  <meta name="description" content="Oportunidades de otimização de custos priorizadas por impacto, esforço e risco." />
+  <title>Simulador — CloudFinOps</title>
+  <meta name="description" content="Inventário de recursos, taxonomia de tags obrigatórias e custo não atribuível." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -34,10 +34,9 @@
         <li><a class="mainnav__link" href="dashboard.html">Dashboard</a></li>
         <li><a class="mainnav__link" href="costs.html">Custos</a></li>
         <li><a class="mainnav__link" href="anomalies.html">Anomalias</a></li>
-        <li><a class="mainnav__link" href="recommendations.html" aria-current="page">Recomendações</a></li>
+        <li><a class="mainnav__link" href="recommendations.html">Recomendações</a></li>
         <li><a class="mainnav__link" href="budgets.html">Orçamentos</a></li>
         <li><a class="mainnav__link" href="governance.html">Governança</a></li>
-          <li><a class="mainnav__link" href="calculator.html">Simulador</a></li>
       </ul>
     </div>
   </nav>
@@ -47,35 +46,43 @@
     <div class="container">
 
       <div class="page__head">
-        <h1>Recomendações de otimização</h1>
-        <p class="page__context" id="rec-context"></p>
+        <h1>Simulador multicloud</h1>
+        <p class="page__context" id="calc-context"></p>
       </div>
-
-      <section aria-labelledby="rec-resumo">
-        <h2 id="rec-resumo" class="sr-only">Resumo das recomendações</h2>
-        <div id="rec-kpis"></div>
-      </section>
 
       <div class="split">
-        <section aria-labelledby="rec-lista-titulo">
+        <section aria-labelledby="calc-form-titulo">
           <div class="section__head">
-            <h2 id="rec-lista-titulo">Oportunidades identificadas</h2>
-            <p class="section__note">altere a situação para recalcular a economia</p>
+            <h2 id="calc-form-titulo">Cenário</h2>
+            <p class="section__note">configure a carga a comparar</p>
           </div>
-          <div class="filterable">
-            <div id="rec-filters"></div>
-            <div id="rec-list"></div>
-          </div>
+          <div id="calc-form"></div>
         </section>
 
-        <section aria-labelledby="rec-nuvem-titulo">
+        <section aria-labelledby="calc-res-titulo">
           <div class="section__head">
-            <h2 id="rec-nuvem-titulo">Oportunidades em aberto por nuvem</h2>
-            <p class="section__note">economia ainda não capturada</p>
+            <h2 id="calc-res-titulo">Comparação entre nuvens</h2>
+            <p class="section__note">catálogo de preços versionado</p>
           </div>
-          <div id="rec-by-provider"></div>
+          <div id="calc-result"></div>
         </section>
       </div>
+
+      <section class="section" aria-labelledby="calc-salvos-titulo">
+        <div class="section__head">
+          <h2 id="calc-salvos-titulo">Cenários salvos</h2>
+          <p class="section__note">persistidos na API</p>
+        </div>
+        <div id="calc-saved"></div>
+      </section>
+
+      <p class="notice">
+        <b>Origem dos preços.</b> O catálogo é um snapshot versionado no repositório, não uma
+        consulta ao vivo. A Retail Prices API da Azure é pública e não autenticada, mas a AWS
+        exige assinatura SigV4 e o Google Cloud exige chave de API — que não pode ficar em
+        código de front-end. A integração ao vivo com as três nuvens depende de servidor e
+        está prevista para a etapa de back-end.
+      </p>
 
     </div>
   </main>
@@ -88,6 +95,6 @@
     </div>
   </footer>
   <!-- #endregion footer -->
-  <script type="module" src="js/pages/recommendations.js"></script>
+  <script type="module" src="js/pages/calculator.js"></script>
 </body>
 </html>
