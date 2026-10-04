@@ -33,13 +33,10 @@ A consequência prática: **as três nuvens chegam no mesmo esquema**, a compara
 ## Equipe
 
 | Integrante | GitHub | LinkedIn |
-|---|---|---|---|
+|---|---|---|
 | Júlia Beatriz | [@juliasantss](https://github.com/juliasantss) | [perfil](https://www.linkedin.com/in/julia-beatriz-santss/) |
 | Fernanda Cipriano |  [@fernandacipriano2410](https://github.com/fernandacipriano2410) | [perfil](https://www.linkedin.com/in/fernanda-mcipriano/) |
 | Júlia Evelim | [@usuario](https://github.com/usuario) | [perfil](https://linkedin.com/in/usuario) |
-
-> Substitua matrículas e links antes de enviar.
-
 ---
 
 ## Telas
