@@ -262,3 +262,241 @@
   .budget__figures { text-align: left; font-size: var(--size-2xs); }
   .budget__mark { display: none; }
 }
+
+/* ==========================================================
+   login.html — tela de acesso
+   ========================================================== */
+.login-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.login { width: 100%; padding: var(--sp-6) var(--sp-5); }
+
+.login__panel {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.login__logo { width: 200px; height: auto; }
+
+.login__pitch {
+  margin-top: var(--sp-4);
+  padding-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+.login__notice {
+  margin-top: var(--sp-5);
+  padding: var(--sp-3) 0 0;
+  border-top: 1px solid var(--rule);
+  font-size: var(--size-3xs);
+  color: var(--ink-faint);
+  line-height: 1.6;
+}
+
+.login__notice b { color: var(--ink-muted); font-weight: 500; }
+
+.login__skip { margin-top: var(--sp-3); font-size: var(--size-2xs); }
+
+/* --- Formulário --- */
+.form { padding-top: var(--sp-5); }
+
+.form__field { margin-bottom: var(--sp-4); border: 0; padding: 0; }
+
+.form__label {
+  display: block;
+  margin-bottom: var(--sp-2);
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+}
+
+.form__input {
+  width: 100%;
+  padding: var(--sp-3);
+  font: inherit;
+  font-size: var(--size-sm);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+}
+
+.form__input::placeholder { color: var(--ink-faint); }
+.form__input:focus { border-color: var(--brand); }
+
+.form__input[aria-invalid="true"] {
+  border-color: var(--alert);
+  background: var(--alert-bg);
+}
+
+.form__error {
+  min-height: 1rem;
+  margin-top: var(--sp-1);
+  font-size: var(--size-3xs);
+  color: var(--alert);
+}
+
+.form__hint {
+  margin-top: var(--sp-2);
+  font-size: var(--size-3xs);
+  color: var(--ink-faint);
+  line-height: 1.5;
+}
+
+.form__submit {
+  width: 100%;
+  margin-top: var(--sp-2);
+  padding: var(--sp-3);
+  font: inherit;
+  font-size: var(--size-sm);
+  color: var(--bg);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.form__submit:hover:not(:disabled) { background: var(--brand); border-color: var(--brand); color: #fff; }
+.form__submit:disabled { opacity: 0.5; cursor: default; }
+
+/* --- Seleção de perfil --- */
+.profile-options { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+
+.profile-option {
+  flex: 1;
+  min-width: 96px;
+  padding: var(--sp-2) var(--sp-3);
+  text-align: center;
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.profile-option:hover { border-color: var(--ink-faint); color: var(--ink); }
+
+.profile-option.is-active {
+  color: var(--bg);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+/* --- Contas de demonstração --- */
+.demo-users { margin-top: var(--sp-2); }
+
+.demo-users__btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--sp-2) var(--sp-3);
+  margin-bottom: var(--sp-1);
+  font: inherit;
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.demo-users__btn:hover { border-color: var(--rule-strong); background: var(--surface); }
+
+.demo-users__name { display: block; font-size: var(--size-2xs); color: var(--ink); }
+
+.demo-users__role {
+  display: block;
+  font-family: var(--font-num);
+  font-size: var(--size-3xs);
+  color: var(--ink-faint);
+}
+
+/* ==========================================================
+   Controles de sessão na barra superior
+   ========================================================== */
+.session {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--size-2xs);
+}
+
+.session__user { text-align: right; line-height: 1.3; }
+.session__name { display: block; color: var(--ink); }
+.session__role { display: block; font-size: var(--size-3xs); color: var(--ink-faint); }
+
+.session__select {
+  font: inherit;
+  font-size: var(--size-2xs);
+  color: var(--ink-muted);
+  background: var(--surface-raised);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  padding: var(--sp-1) var(--sp-2);
+  cursor: pointer;
+}
+
+.session__exit,
+.session__link {
+  font: inherit;
+  font-size: var(--size-2xs);
+  color: var(--ink-faint);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+}
+
+.session__exit:hover, .session__link:hover { color: var(--ink); text-decoration: underline; }
+
+@media (max-width: 560px) {
+  .session__user { display: none; }
+}
+
+/* --- Ações e formulário de orçamento --- */
+.budget__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+}
+
+.pager__btn--danger { color: var(--alert); border-color: var(--alert); }
+.pager__btn--danger:hover:not(:disabled) { background: var(--alert-bg); }
+
+.budget__feedback { font-size: var(--size-3xs); color: var(--alert); }
+
+.form__title {
+  padding-top: var(--sp-5);
+  font-size: var(--size-sm);
+  color: var(--ink-muted);
+}
+
+.form__cancel {
+  width: 100%;
+  margin-top: var(--sp-2);
+  padding: var(--sp-2);
+  font: inherit;
+  font-size: var(--size-2xs);
+  color: var(--ink-faint);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.form__cancel:hover { color: var(--ink); border-color: var(--rule-strong); }
+
+/* Campo de busca do inventário */
+.search { margin-bottom: var(--sp-3); }
+.search::-webkit-search-cancel-button { filter: invert(0.6); }
+
+/* Formulário em linha do simulador */
+.form--inline { display: flex; gap: var(--sp-2); align-items: flex-start; padding-top: var(--sp-3); }
+.form--inline .form__input { flex: 1; }
+.form--inline .form__submit { width: auto; margin-top: 0; white-space: nowrap; }
